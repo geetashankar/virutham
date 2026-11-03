@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viruttham Practice Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf6ee; --card:#fffdf9; --ink:#2a1d1a; --muted:#6d5b55; --line:#eadfce;
+  --maroon:#7a1f2b; --maroon-2:#9a2d3b; --saffron:#d98a1f; --saffron-soft:#fbe9cc;
+  --green:#2f6b4f; --green-soft:#e2f0e8; --red-soft:#f8e1e1;
+  --seg1:#7a1f2b; --seg2:#d98a1f; --seg3:#2f6b4f; --seg4:#3d5a99;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.55;font-size:16px}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;color:var(--maroon);line-height:1.15;margin:0 0 .4em}
+h1{font-size:2.3rem}
+h2{font-size:1.75rem;margin-top:.2em}
+h3{font-size:1.3rem}
+a{color:var(--maroon-2)}
+header{background:linear-gradient(135deg,#6b1724,#9a2d3b 60%,#b5562a);color:#fff7ea;padding:28px 20px 0}
+header .wrap{max-width:1040px;margin:0 auto}
+header h1{color:#fff7ea;margin-bottom:.15em}
+header .byline{font:600 1.05rem "Cormorant Garamond",Georgia,serif;color:#fbe9cc;margin:0 0 8px;letter-spacing:.03em}
+header p{margin:0 0 18px;opacity:.9;max-width:700px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav button{background:transparent;border:0;color:#fbe9cc;font:600 15px Inter,sans-serif;padding:12px 18px;border-radius:12px 12px 0 0;cursor:pointer}
+nav button[aria-selected="true"]{background:var(--bg);color:var(--maroon)}
+nav button:hover:not([aria-selected="true"]){background:rgba(255,255,255,.12)}
+main{max-width:1040px;margin:0 auto;padding:24px 20px 60px}
+.tab{display:none}.tab.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;margin-bottom:18px;box-shadow:0 1px 2px rgba(80,40,20,.04)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}h1{font-size:1.9rem}}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--saffron-soft);color:#7a4a0c;font-size:.8rem;font-weight:600;margin:2px 4px 2px 0}
+.pill.maroon{background:#f4dfe2;color:var(--maroon)}
+.pill.green{background:var(--green-soft);color:var(--green)}
+.do,.dont{border-radius:10px;padding:12px 14px;margin:8px 0}
+.do{background:var(--green-soft);border-left:4px solid var(--green)}
+.dont{background:var(--red-soft);border-left:4px solid var(--maroon)}
+.do b,.dont b{display:block;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.verse{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.35rem;line-height:1.7}
+.ex{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.25rem}
+.stretch{letter-spacing:.02em}
+.long{background:#fde3b5;border-radius:3px;padding:0 1px}
+.long.end{background:#f7c27a;box-shadow:inset 0 -2px 0 var(--saffron)}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em}
+ul.tight{margin:.3em 0;padding-left:1.2em}ul.tight li{margin:.25em 0}
+details{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0;background:#fff}
+details summary{cursor:pointer;font-weight:600;color:var(--maroon)}
+label{font-weight:500}
+select,input[type=text],textarea,input[type=number]{font:inherit;padding:9px 11px;border:1px solid #d9cbb6;border-radius:10px;background:#fff;color:var(--ink);width:100%}
+textarea{min-height:120px;resize:vertical}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.field{margin:10px 0}
+.field > label{display:block;margin-bottom:5px;font-size:.92rem}
+.check{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;margin:6px 0}
+.check input{margin-top:4px;accent-color:var(--maroon);width:18px;height:18px}
+.check.on{border-color:var(--saffron);background:#fff8ec}
+.btn{font:600 15px Inter,sans-serif;border:0;border-radius:10px;padding:11px 18px;cursor:pointer;background:var(--maroon);color:#fff}
+.btn:hover{background:var(--maroon-2)}
+.btn.secondary{background:#fff;color:var(--maroon);border:1px solid var(--maroon)}
+.btn.ghost{background:transparent;color:var(--maroon);padding:6px 10px}
+.btn.big{font-size:17px;padding:14px 26px}
+.btn.sm{padding:6px 12px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.step{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.step .num{width:30px;height:30px;border-radius:50%;background:var(--maroon);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+.hidden{display:none!important}
+.raga-slot{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;margin:6px 0}
+.dot{width:14px;height:14px;border-radius:50%}
+.raga-card{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff;border-left-width:6px}
+.raga-card h4{margin:0;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.35rem;color:var(--ink)}
+.scale{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85rem;color:var(--muted)}
+.ragas-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:10px 0}
+.seg-line{padding:6px 12px;border-left:5px solid;margin:4px 0;border-radius:0 8px 8px 0;background:#fff}
+.seg-label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.timer{display:flex;flex-direction:column;align-items:center;gap:12px}
+.clock{font:700 4rem/1 "Cormorant Garamond",Georgia,serif;color:var(--maroon);font-variant-numeric:tabular-nums}
+.clock.warn{color:var(--saffron)}.clock.over{color:#b3261e}
+.bar{display:flex;width:100%;height:16px;border-radius:999px;overflow:hidden;background:#efe5d6;position:relative}
+.bar .seg{height:100%;opacity:.35}
+.bar .needle{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--ink);border-radius:2px;left:0;transition:left .25s linear}
+.now{font-weight:600}
+.lib-filters{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.chip{border:1px solid #d9cbb6;background:#fff;border-radius:999px;padding:6px 14px;cursor:pointer;font:500 14px Inter,sans-serif;color:var(--ink)}
+.chip.on{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.vcard h3{margin:0}
+.vcard .first{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.12rem;color:var(--muted);font-style:italic}
+.deity-head{margin:26px 0 10px;display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--line);padding-bottom:6px}
+.deity-head h2{margin:0}
+.notes{background:#fff8ec;border:1px dashed var(--saffron);border-radius:10px;padding:10px 14px;font-size:.93rem}
+.legend span{margin-right:12px}
+.toggle-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:6px 0 10px}
+.kbd{font-family:ui-monospace,Menlo,monospace;background:#f2e9da;padding:1px 6px;border-radius:5px;font-size:.85em}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:20px}
+.toc{display:flex;flex-wrap:wrap;gap:6px}
+.toc a{text-decoration:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Viruttham Practice Studio</h1>
+    <div class="byline">By Geeta Shankar · <a href="https://www.instagram.com/g2shankar/" target="_blank" rel="noopener" style="color:#fbe9cc">@g2shankar</a></div>
+    <p>Learn how to sing a viruttham, practice with a randomized verse and set of ragas against a competition timer, and browse verses by deity.</p>
+    <nav role="tablist">
+      <button role="tab" aria-selected="true" data-tab="learn">📖 Learn</button>
+      <button role="tab" aria-selected="false" data-tab="practice">🎙️ Practice</button>
+      <button role="tab" aria-selected="false" data-tab="glossary">🪔 Glossary</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ============================ LEARN ============================ -->
+<section class="tab active" id="tab-learn">
+  <div class="card">
+    <div class="toc small">
+      <span class="muted">Jump to:</span>
+      <a href="#l-what" class="pill maroon">What is a viruttham</a>
+      <a href="#l-long" class="pill maroon">Where to elongate</a>
+      <a href="#l-meaning" class="pill maroon">Meaning first</a>
+      <a href="#l-breath" class="pill maroon">Breath &amp; phrasing</a>
+      <a href="#l-raga" class="pill maroon">Choosing ragas</a>
+      <a href="#l-time" class="pill maroon">Time budget</a>
+      <a href="#l-about" class="pill maroon">About</a>
+      <a href="#l-pitfalls" class="pill maroon">Common pitfalls</a>
+    </div>
+  </div>
+
+  <div class="card" id="l-what">
+    <h2>What is a viruttham?</h2>
+    <p>A <b>viruttham</b> (also spelled <i>virutham</i> or <i>viruttam</i>) is a form of <b>manodharmam</b>, or improvisation, in Carnatic music. It is a verse of poetry sung with <b>no tala</b>. The singer brings out a raga through the words, and the shape of the poem sets the pace, so it works like an alapana that carries lyrics. It is usually sung just before a kriti to set the mood, often in that kriti's raga, or in several ragas with the last one being the kriti's raga.</p>
+    <p>The same idea goes by different names depending on the language:</p>
+    <table>
+      <tr><th>Name</th><th>Language</th><th>Typical sources</th></tr>
+      <tr><td><b>Viruttham</b></td><td>Tamil</td><td>Tevaram, Divya Prabandham, Tiruppugazh &amp; Kandar Alangaram, Abhirami Andadi, Bharathiyar</td></tr>
+      <tr><td><b>Sloka</b></td><td>Sanskrit</td><td>Dhyana slokas, stotras, Krishna Karnamritam, Mukapanchashati, Soundarya Lahari</td></tr>
+      <tr><td><b>Padyam</b></td><td>Telugu</td><td>Potana's Bhagavatam, Annamacharya, satakams</td></tr>
+      <tr><td><b>Ugabhoga</b></td><td>Kannada</td><td>Purandaradasa and the other Haridasas</td></tr>
+    </table>
+    <p class="small muted" style="margin-top:10px">In a viruttham competition the verse itself is the whole performance. Judges listen for raga knowledge, correct and expressive words (sahityam), how well you improvise, your sruti alignment, and how the performance is shaped from start to finish.</p>
+  </div>
+
+  <div class="card" id="l-long">
+    <h2>Where to elongate: long syllables and word endings</h2>
+    <p>Improvising in a viruttham means stretching a syllable and singing raga phrases on it (this is sometimes called <i>karvai</i>). <b>Which</b> syllable you stretch decides whether the words stay clear or fall apart.</p>
+    <div class="grid2">
+      <div>
+        <h3>Stretch these</h3>
+        <ul class="tight">
+          <li><b>Long vowels (deergham / nedil):</b> ā, ī, ū, ē, ō, ai, au. They are already long in speech, so stretching them keeps the word intact.</li>
+          <li><b>The end of a word,</b> and above all the end of a line. The listener has heard the whole word by then, so you can take your time.</li>
+          <li><b>The vowel of an important word</b> (the deity's name, or the emotional peak of the verse).</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Avoid stretching these</h3>
+        <ul class="tight">
+          <li><b>Short vowels (hrasvam / kuril):</b> a, i, u, and in Tamil the short e and o. Stretching them turns the word into a different one.</li>
+          <li><b>The middle of a word,</b> because the listener loses track of the word.</li>
+          <li><b>A short vowel before a conjunct</b> such as <i>va</i>-kra or <i>ni</i>-rvighnam. Never split a conjunct consonant cluster.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:14px">Try it: <i>vakratuṇḍa mahākāya…</i></h3>
+    <div class="do"><b>✓ Good</b><span class="ex">vakratuṇḍa mahā<span class="stretch">kā~~~~</span>ya · sūryakōṭi samaprabha · … · sarvakāryēṣu sarva<span class="stretch">dā~~~~~~</span></span><br><span class="small">"kā" in mahākāya and the final "dā" of sarvadā are both long, and the final dā ends the verse, which is the best place for your longest phrase.</span></div>
+    <div class="dont"><b>✗ Avoid</b><span class="ex"><span class="stretch">va~~~~</span>kratuṇḍa · <span class="stretch">ni~~~~</span>rvighnaṁ</span><br><span class="small">"va" and "ni" are short, and each sits in front of a consonant cluster. Stretching them breaks the word and sounds like a different word.</span></div>
+
+    <h3 style="margin-top:14px">In Tamil: kuril vs. nedil</h3>
+    <p>Tamil marks short and long vowels separately: kuril அ இ உ எ ஒ, and nedil ஆ ஈ ஊ ஏ ஐ ஓ ஔ. In <i>māsil vīṇaiyum mālai madiyamum</i>, the good places to stretch are <b>mā</b>, <b>vī</b>, <b>mā</b>(lai) and the line ending. The <i>ya</i> in <i>madiyamum</i> is short, so don't stretch it.</p>
+    <div class="notes">💡 In the Practice and Glossary tabs, turn on <b>Highlight long syllables</b>. Long vowels are shaded, and the darker shade with an underline marks long vowels at the end of a word, which are your safest places to improvise. (The transliterations write Sanskrit e and o as ē and ō because they are always long in Sanskrit.)</div>
+  </div>
+
+  <div class="card" id="l-meaning">
+    <h2>Understand the meaning before you improvise</h2>
+    <p>Don't stretch a syllable just because it happens to be long. A viruttham works when the music grows out of what the words mean. Before you sing:</p>
+    <ol>
+      <li><b>Read a word-by-word translation.</b> Know what each word means, not only the general idea.</li>
+      <li><b>Find 2–4 key words.</b> Usually these are the deity's name or epithet, the image the poem is built on, and the plea or the conclusion.</li>
+      <li><b>Find the emotional peak.</b> Plan to reach the upper octave (tara sthayi) there, and nowhere else.</li>
+      <li><b>Match the register to the meaning.</b> Gentle words such as a lullaby or a cool breeze suit soft, lower phrases. Heroic or urgent words suit wide, bold phrases.</li>
+    </ol>
+    <p><b>Example:</b> in Kandar Alangaram, <i>nāḷ en seyyum… kumarēsar iru tāḷum…</i>, the poet asks a string of questions that build up: "what can the day do, what can karma do, what can Death do?" The answer comes with <i>kumarēsar</i> and the vision of Murugan's feet. Keep the questions fairly brisk, then let the improvisation open up on <b>kumarēsar</b> and on the final <b>tōndriḍinē</b>.</p>
+  </div>
+
+  <div class="card" id="l-breath">
+    <h2>Breath and phrasing</h2>
+    <ul class="tight">
+      <li>Breathe at the end of a line or a quarter-line (pada), never inside a word or a compound word.</li>
+      <li>Before a long karvai, take the breath ahead of the whole word, not just before the syllable you plan to stretch.</li>
+      <li>Repeating a key phrase two or three times with different raga phrases, building up each time, is effective. Keep each repeat clearly different.</li>
+      <li>Pronounce the consonants clearly: ḷ/l, ṇ/n, zh (ழ), ṣ/ś/s. Judges notice.</li>
+      <li>Settle on the tonic (Sa) or a resting note of the raga before you move to the next line or the next raga.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="l-raga">
+    <h2>Choosing ragas for a multi-raga viruttham</h2>
+    <p>The Cleveland rules allow up to four ragas. More ragas don't earn more marks. Each change should give the listener something new to hear.</p>
+    <h3>Build contrast</h3>
+    <table>
+      <tr><th>Kind of contrast</th><th>What it means</th><th>Example</th></tr>
+      <tr><td><b>Mood (rasa)</b></td><td>Let each raga carry the feeling of its part of the verse.</td><td>Majestic Kambhoji for the description → tender Neelambari for the plea</td></tr>
+      <tr><td><b>Madhyamam</b></td><td>Going between shuddha (M1) and prati (M2) madhyamam is one of the clearest changes a listener can hear.</td><td>Shankarabharanam (M1) → Shanmukhapriya (M2)</td></tr>
+      <tr><td><b>Parent scale</b></td><td>Pick ragas from different melakartas so their notes really differ.</td><td>Todi (8) → Mohanam (28) → Shanmukhapriya (56)</td></tr>
+      <tr><td><b>Weight</b></td><td>Mix heavy ragas that need room (Todi, Kambhoji) with lighter ones (Kapi, Behag).</td><td>Begada → Kapi</td></tr>
+    </table>
+    <h3 style="margin-top:14px">Avoid pairs that sound too alike</h3>
+    <p class="small">These pairs sound so similar that the change can go unnoticed or sound like a mistake: Kharaharapriya → Abheri, Shankarabharanam → Bilahari, Mohanam → Bilahari. If you do pair two close ragas, make the difference obvious at the very first phrase of the new raga.</p>
+    <h3>Order and transitions</h3>
+    <ul class="tight">
+      <li><b>Start strong.</b> Open with a raga that makes an immediate, confident impression, often a bright or majestic one.</li>
+      <li><b>Put the heaviest raga in the middle,</b> where the verse is fullest.</li>
+      <li><b>End lighter</b> with Madhyamavati, Surutti, Sindhubhairavi, Behag or Kapi. It feels like a natural close, and these ragas sound complete in a short time.</li>
+      <li><b>Change raga where the meaning changes,</b> at the end of a line or quarter-line, never in the middle of a word.</li>
+      <li><b>Make the new raga clear at once.</b> Open each new raga with its most characteristic phrase so the judges recognize it straight away.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="l-time">
+    <h2>Time budget for a 6-minute viruttham competition</h2>
+    <table>
+      <tr><th>Ragas</th><th>Suggested split</th><th>Notes</th></tr>
+      <tr><td>1</td><td>~5:30 total</td><td>Space to go deep: a slow start, a climax in the upper octave, a calm close.</td></tr>
+      <tr><td>2</td><td>~2:45 each</td><td>A good balance of depth and contrast.</td></tr>
+      <tr><td>3</td><td>~1:50 each</td><td>Show each raga's character right away.</td></tr>
+      <tr><td>4</td><td>~1:20 each</td><td>Tight. Leave out extended karvais on lines that aren't key lines.</td></tr>
+    </table>
+    <p class="small muted">Aim to finish around 5:30, so you have a cushion and the buzzer never cuts off your last phrase.</p>
+  </div>
+
+  <div class="card" id="l-pitfalls">
+    <h2>Common pitfalls</h2>
+    <ul class="tight">
+      <li>Stretching short syllables or the middle of a word until the lyrics can't be followed.</li>
+      <li>Spending three minutes on the first raga and rushing the rest.</li>
+      <li>Reaching the upper octave on every line, so the real climax has nothing left.</li>
+      <li>Choosing four similar ragas, which sounds like one long raga.</li>
+      <li>Changing raga in the middle of a word or a thought.</li>
+      <li>Never practicing with a timer. Use the Practice tab.</li>
+    </ul>
+    <p><button class="btn" data-goto="practice">Start practicing →</button></p>
+  </div>
+
+  <div class="card" id="l-about">
+    <h2>About the creator</h2>
+    <p><b>Geeta Shankar</b> is an accomplished Carnatic vocalist and veena player who trained under Guru Sri Neyveli R. Santhanagopalan. She regularly performs across major venues in the U.S. and India. As a prominent digital creator and educator, she leverages her online presence and innovative teaching methods to promote classical Indian music to a global audience.</p>
+    <p>Follow on Instagram: <a href="https://www.instagram.com/g2shankar/" target="_blank" rel="noopener">@g2shankar</a></p>
+  </div>
+</section>
+
+<!-- ============================ PRACTICE ============================ -->
+<section class="tab" id="tab-practice">
+  <div class="card">
+    <div class="step"><div class="num">1</div><h2 style="margin:0">What should be randomized?</h2></div>
+    <p class="muted small">Tick what you want the tool to choose for you. You'll pick anything you leave unticked yourself.</p>
+    <div class="grid2">
+      <div>
+        <label class="check" id="c-v"><input type="checkbox" id="rand-v"><span><b>The viruttham</b><br><span class="small muted">A random verse from the library</span></span></label>
+        <label class="check" id="c-n"><input type="checkbox" id="rand-n" checked><span><b>How many ragas</b><br><span class="small muted">Somewhere from 1 to 4</span></span></label>
+        <label class="check" id="c-r"><input type="checkbox" id="rand-r" checked><span><b>Which ragas</b><br><span class="small muted">Up to 4 random ragas that contrast with each other. Untick to enter ragas you've already decided on.</span></span></label>
+      </div>
+      <div class="notes">
+        <b>Ideas for using this</b>
+        <ul class="tight small">
+          <li><b>Competition prep:</b> lock in your own viruttham and ragas and run the 6-minute timer.</li>
+          <li><b>Exploring ragas:</b> keep your verse and randomize the ragas, to find out how your verse sounds in new ones.</li>
+          <li><b>Sight-singing challenge:</b> randomize everything.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="step"><div class="num">2</div><h2 style="margin:0">Viruttham</h2></div>
+      <div id="v-random-opts">
+        <div class="field"><label for="v-deity-filter">Choose at random from</label>
+          <select id="v-deity-filter"></select></div>
+      </div>
+      <div id="v-manual-opts" class="hidden">
+        <div class="row" style="margin:8px 0">
+          <label><input type="radio" name="vsrc" value="lib" checked> From the library</label>
+          <label><input type="radio" name="vsrc" value="own"> Add my own</label>
+        </div>
+        <div id="v-lib" class="field"><select id="v-select"></select></div>
+        <div id="v-own" class="hidden">
+          <div class="field"><label for="own-title">Title / first words</label><input type="text" id="own-title" placeholder="e.g. Kaṇṇan vandān"></div>
+          <div class="row">
+            <div class="field" style="flex:1"><label for="own-deity">Deity</label><select id="own-deity"></select></div>
+            <div class="field" style="flex:1"><label for="own-lang">Language</label><input type="text" id="own-lang" placeholder="Tamil, Sanskrit…"></div>
+          </div>
+          <div class="field"><label for="own-text">Text: one line (or quarter-line) per row</label><textarea id="own-text" placeholder="line 1&#10;line 2&#10;line 3&#10;line 4"></textarea></div>
+          <div class="field"><label for="own-meaning">Meaning (optional, but it helps you choose where to improvise)</label><textarea id="own-meaning" style="min-height:70px"></textarea></div>
+          <div class="field"><label for="own-key">Key words to improvise on (optional, separate with commas)</label><input type="text" id="own-key"></div>
+          <label class="small"><input type="checkbox" id="own-save" checked> Save to my glossary on this device</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="step"><div class="num">3</div><h2 style="margin:0">Ragas</h2></div>
+      <div class="row" style="margin:6px 0 10px">
+        <label class="chip" id="rm-rand"><input type="radio" name="rmode" value="rand" checked hidden>🎲 Randomize my ragas</label>
+        <label class="chip" id="rm-own"><input type="radio" name="rmode" value="own" hidden>✍️ I've already chosen my ragas</label>
+      </div>
+      <div id="n-manual" class="field hidden"><label for="n-select">Number of ragas</label>
+        <select id="n-select"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
+      <div id="n-random-note" class="small muted">The tool will pick 1–4 ragas.</div>
+      <div id="r-random-opts">
+        <label class="check on"><input type="checkbox" id="opt-contrast" checked><span><b>Contrast mode</b><br><span class="small muted">Each raga differs from the one before it in mood, parent scale and madhyamam</span></span></label>
+        <label class="check"><input type="checkbox" id="opt-light"><span><b>End on a lighter raga</b><br><span class="small muted">Madhyamavati, Surutti, Sindhubhairavi, Kapi…</span></span></label>
+      </div>
+      <div id="r-manual" class="hidden"></div>
+      <datalist id="raga-list"></datalist>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:6px 0 22px">
+    <button class="btn big" id="gen">🎲 Create practice card</button>
+  </div>
+
+  <div id="result" class="hidden">
+    <div class="card">
+      <div class="row" style="justify-content:space-between">
+        <div>
+          <span class="pill maroon" id="res-deity"></span><span class="pill" id="res-lang"></span>
+          <h2 id="res-title" style="margin:.2em 0 0"></h2>
+          <div class="small muted" id="res-source"></div>
+        </div>
+        <div class="row">
+          <button class="btn secondary sm" id="reroll-v">↻ New verse</button>
+          <button class="btn secondary sm" id="reroll-r">↻ New ragas</button>
+        </div>
+      </div>
+      <div class="toggle-row">
+        <label class="small"><input type="checkbox" id="hl-toggle" checked> Highlight long syllables</label>
+        <span class="legend small muted"><span><span class="long">ā</span> long vowel</span><span><span class="long end">ā</span> long vowel at end of word (best spot)</span></span>
+      </div>
+      <h3>Ragas</h3>
+      <div class="ragas-out" id="res-ragas"></div>
+      <div id="res-contrast" class="small"></div>
+      <h3 style="margin-top:16px">Verse, divided between the ragas</h3>
+      <div id="res-lines" class="verse"></div>
+      <div id="res-meaning-wrap"><h3 style="margin-top:16px">Meaning</h3><p id="res-meaning"></p></div>
+      <div id="res-key-wrap"><h3>Key words to improvise on</h3><div id="res-key"></div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>⏱ Competition timer</h2>
+        <div class="timer">
+          <div class="row small">
+            <label for="t-limit">Limit</label>
+            <select id="t-limit" style="width:auto"><option value="360" selected>6:00 (competition)</option><option value="300">5:00</option><option value="240">4:00</option><option value="180">3:00</option></select>
+            <label><input type="checkbox" id="t-chime" checked> Chime at each raga change</label>
+          </div>
+          <div class="clock" id="clock">6:00</div>
+          <div class="bar" id="tbar"><div class="needle" id="needle"></div></div>
+          <div id="t-now" class="now small">Press start when you sing your first note.</div>
+          <div class="row">
+            <button class="btn" id="t-start">▶ Start</button>
+            <button class="btn secondary" id="t-reset">Reset</button>
+          </div>
+          <div class="small muted">A buzzer sounds at time, and a soft beep sounds 30 seconds before.</div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>🎧 Record yourself</h2>
+        <p class="small muted">Listen back for: syllables stretched by mistake, rushed raga changes, and pitch at your long notes. The recording stays on your device.</p>
+        <div class="row">
+          <button class="btn" id="rec-btn">● Record</button>
+          <label class="small"><input type="checkbox" id="rec-sync" checked> Start timer with recording</label>
+        </div>
+        <div id="rec-status" class="small muted" style="margin:8px 0"></div>
+        <audio id="rec-audio" controls class="hidden" style="width:100%"></audio>
+        <a id="rec-dl" class="small hidden" download="viruttham-practice.webm">Download recording</a>
+        <h3 style="margin-top:14px">Self-check</h3>
+        <label class="check"><input type="checkbox"> Did I stretch only long syllables or word endings?</label>
+        <label class="check"><input type="checkbox"> Was each raga clear from its first phrase?</label>
+        <label class="check"><input type="checkbox"> Did I save the upper octave for the climax?</label>
+        <label class="check"><input type="checkbox"> Did I finish before 5:45?</label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ GLOSSARY ============================ -->
+<section class="tab" id="tab-glossary">
+  <div class="card">
+    <h2>Viruttham glossary by deity</h2>
+    <p class="muted small">Traditional verses for concerts and competitions. Each one lists ragas it is often sung in, as starting ideas. Long vowels are marked with a macron (ā ī ū ē ō). Check the text with your guru before you perform it.</p>
+    <div class="row">
+      <input type="text" id="g-search" placeholder="Search by words, source or raga…" style="flex:1;min-width:220px">
+      <label class="small"><input type="checkbox" id="g-hl"> Highlight long syllables</label>
+    </div>
+    <div class="lib-filters" id="g-chips"></div>
+  </div>
+  <div id="g-list"></div>
+</section>
+</main>
+<footer>Created by Geeta Shankar (<a href="https://www.instagram.com/g2shankar/" target="_blank" rel="noopener">@g2shankar</a>) · Made for Carnatic students preparing for viruttham competitions. Verses are traditional; always learn pronunciation and pāṭhāntaram (textual variants) from your guru.</footer>
+
+<script>
+/* ===================== DATA ===================== */
+const DEITIES = ["Ganesha","Saraswati","Shiva","Vishnu","Krishna","Rama","Devi","Lakshmi","Murugan","Hanuman","Ayyappa","Guru"];
+const DEITY_ICON = {Ganesha:"🐘",Saraswati:"🪕",Shiva:"🔱",Vishnu:"🐚",Krishna:"🪈",Rama:"🏹",Devi:"🌺",Lakshmi:"🪷",Murugan:"🦚",Hanuman:"🙏",Ayyappa:"⛰️",Guru:"🕯️"};
+
+const VIRUTTHAMS = [
+ {id:"vakratunda",deity:"Ganesha",lang:"Sanskrit",title:"Vakratuṇḍa Mahākāya",source:"Traditional dhyana sloka (Mudgala Purana tradition)",
+  lines:["vakratuṇḍa mahākāya","sūryakōṭi samaprabha","nirvighnaṁ kuru mē dēva","sarvakāryēṣu sarvadā"],
+  meaning:"O Lord with the curved trunk and mighty form, radiant as ten million suns, please keep all my undertakings free of obstacles, always.",
+  key:["mahākāya","sūryakōṭi","dēva","sarvadā"],ragas:["Hamsadhwani","Nattai","Gambhira Nattai"]},
+ {id:"suklambara",deity:"Ganesha",lang:"Sanskrit",title:"Śuklāmbaradharaṁ",source:"Traditional dhyana sloka",
+  lines:["śuklāmbaradharaṁ viṣṇuṁ","śaśivarṇaṁ caturbhujam","prasannavadanaṁ dhyāyēt","sarvavighnōpaśāntayē"],
+  meaning:"Meditate on the one clad in white, all-pervading, moon-hued, four-armed and serene-faced, so that all obstacles are calmed.",
+  key:["śuklāmbaradharaṁ","prasannavadanaṁ","dhyāyēt","śāntayē"],ragas:["Hamsadhwani","Mohanam","Kalyani"]},
+ {id:"agajanana",deity:"Ganesha",lang:"Sanskrit",title:"Agajānana Padmārkaṁ",source:"Traditional dhyana sloka",
+  lines:["agajānana padmārkaṁ","gajānanam aharniśam","anēkadaṁ taṁ bhaktānām","ēkadantam upāsmahē"],
+  meaning:"Day and night I worship the elephant-faced Lord, the sun that makes Parvati's lotus face bloom, the giver of many boons to devotees, the single-tusked one.",
+  key:["padmārkaṁ","gajānanam","ēkadantam","upāsmahē"],ragas:["Nattai","Sri","Hamsadhwani"]},
+ {id:"vakkundam",deity:"Ganesha",lang:"Tamil",title:"Vākkuṇḍām Nalla Manamuṇḍām",source:"Avvaiyar, Mūturai (verse 1)",
+  lines:["vākkuṇḍām nalla manamuṇḍām māmalarāḷ","nōkkuṇḍām mēni nuḍaṅgādu pūkkoṇḍu","tuppār tirumēnit tumbikkaiyān pādam","tappāmal sārvār tamakku"],
+  meaning:"Those who unfailingly worship, with flowers, the feet of the coral-hued, trunked Lord will gain eloquence, a good mind and Lakshmi's gracious glance, and their body will not wither.",
+  key:["vākkuṇḍām","māmalarāḷ","tumbikkaiyān pādam","tamakku"],ragas:["Hamsadhwani","Mohanam","Kalyani","Nattai"]},
+
+ {id:"ekadantam",deity:"Ganesha",lang:"Sanskrit",title:"Ēkadantaṁ Mahākāyaṁ",source:"Traditional Ganesha dhyana sloka",
+  lines:["ēkadantaṁ mahākāyaṁ","taptakāñcana sannibham","lambōdaraṁ viśālākṣaṁ","vandē'haṁ gaṇanāyakam"],
+  meaning:"I salute the leader of the ganas, the single-tusked one of mighty form, glowing like molten gold, big-bellied and wide-eyed.",
+  key:["mahākāyaṁ","taptakāñcana","viśālākṣaṁ","gaṇanāyakam"],ragas:["Hamsadhwani","Nattai","Gambhira Nattai"]},
+
+ {id:"saraswati-namas",deity:"Saraswati",lang:"Sanskrit",title:"Sarasvati Namastubhyaṁ",source:"Traditional prayer",
+  lines:["sarasvati namastubhyaṁ","varadē kāmarūpiṇi","vidyārambhaṁ kariṣyāmi","siddhir bhavatu mē sadā"],
+  meaning:"Salutations to you, Saraswati, giver of boons, who takes any form at will. I am beginning my studies; may I always succeed.",
+  key:["sarasvati","varadē","kāmarūpiṇi","sadā"],ragas:["Kalyani","Hamsadhwani","Amritavarshini"]},
+ {id:"ya-kundendu",deity:"Saraswati",lang:"Sanskrit",title:"Yā Kundēndu Tuṣārahāra",source:"Traditional Saraswati dhyana sloka",
+  lines:["yā kundēndu tuṣārahāra dhavalā yā śubhra vastrāvṛtā","yā vīṇā varadaṇḍa maṇḍitakarā yā śvēta padmāsanā","yā brahmācyuta śaṅkara prabhṛtibhir dēvaiḥ sadā vanditā","sā māṁ pātu sarasvatī bhagavatī niḥśēṣa jāḍyāpahā"],
+  meaning:"She who is white as jasmine, the moon, frost and a garland of pearls, robed in white; whose hands are adorned with the veena; who sits on a white lotus; who is always worshipped by Brahma, Vishnu, Shiva and the gods: may that Goddess Saraswati, who removes all dullness, protect me.",
+  key:["dhavalā","vīṇā","padmāsanā","sarasvatī bhagavatī","jāḍyāpahā"],ragas:["Kalyani","Hindolam","Revati","Amritavarshini"]},
+
+ {id:"karpura",deity:"Shiva",lang:"Sanskrit",title:"Karpūragauraṁ Karuṇāvatāraṁ",source:"Traditional (Yajurveda tradition, sung at arati)",
+  lines:["karpūragauraṁ karuṇāvatāraṁ","saṁsārasāraṁ bhujagēndrahāram","sadā vasantaṁ hṛdayāravindē","bhavaṁ bhavānīsahitaṁ namāmi"],
+  meaning:"I bow to Shiva, fair as camphor, compassion incarnate, the essence of existence, wearing the king of serpents as a garland, who always dwells in the lotus of the heart, together with Bhavani.",
+  key:["karuṇāvatāraṁ","bhujagēndrahāram","hṛdayāravindē","namāmi"],ragas:["Kambhoji","Revati","Shankarabharanam","Varali"]},
+ {id:"masil-veenai",deity:"Shiva",lang:"Tamil",title:"Māsil Vīṇaiyum",source:"Appar (Tirunavukkarasar), Tēvāram, 5th Tirumurai",
+  lines:["māsil vīṇaiyum mālai madiyamum","vīsu tendralum vīṅgiḷa vēnilum","mūsu vaṇḍarai poygaiyum pōndradē","īsan endai iṇaiyaḍi nizhalē"],
+  meaning:"The shade of the twin feet of Isan, my father, is like a flawless veena, the evening moon, the blowing southern breeze, the swelling spring, and a pond humming with bees.",
+  key:["vīṇaiyum","tendralum","īsan endai","nizhalē"],ragas:["Hindolam","Kedaragowla","Kapi","Neelambari"]},
+ {id:"anbum-sivamum",deity:"Shiva",lang:"Tamil",title:"Anbum Sivamum",source:"Tirumūlar, Tirumantiram (verse 270)",
+  lines:["anbum sivamum iraṇḍenbar ariviḷār","anbē sivamāvadu ārum ariyār","anbē sivamāvadu ārum arindapin","anbē sivamāy amarndirundārē"],
+  meaning:"The ignorant say love and Shiva are two. No one knows that love itself is Shiva. Once they know that love is Shiva, they rest in love as Shiva.",
+  key:["anbē","sivamāvadu","ariyār","amarndirundārē"],ragas:["Hamsanandi","Kharaharapriya","Sindhubhairavi","Revati"]},
+
+ {id:"santakaram",deity:"Vishnu",lang:"Sanskrit",title:"Śāntākāraṁ Bhujagaśayanaṁ",source:"Traditional Vishnu dhyana sloka",
+  lines:["śāntākāraṁ bhujagaśayanaṁ padmanābhaṁ surēśaṁ","viśvādhāraṁ gaganasadṛśaṁ mēghavarṇaṁ śubhāṅgam","lakṣmīkāntaṁ kamalanayanaṁ yōgibhirdhyānagamyaṁ","vandē viṣṇuṁ bhavabhayaharaṁ sarvalōkaikanātham"],
+  meaning:"I salute Vishnu, of peaceful form, reclining on the serpent, lotus-naveled, lord of the gods, support of the universe, vast as the sky, cloud-hued, auspicious-limbed, beloved of Lakshmi, lotus-eyed, reached by yogis in meditation, remover of the fear of worldly existence, the one lord of all worlds.",
+  key:["śāntākāraṁ","mēghavarṇaṁ","kamalanayanaṁ","vandē viṣṇuṁ","sarvalōkaikanātham"],ragas:["Kalyani","Todi","Kambhoji"]},
+ {id:"margazhi",deity:"Vishnu",lang:"Tamil",title:"Mārgazhit Tiṅgaḷ",source:"Āṇḍāḷ, Tiruppāvai (pāsuram 1)",
+  lines:["mārgazhit tiṅgaḷ madi niraindha nannāḷāl","nīrāḍap pōduvīr pōduminō nērizhaiyīr","sīrmalgum āyppāḍi selvach sirumīrgāḷ","kūrvēl koḍundozhilan nandagōpan kumaran","ērārnda kaṇṇi yasōdai iḷaṅsiṅgam","kārmēnich seṅgaṇ kadirmadiyam pōl mugattān","nārāyaṇanē namakkē parai taruvān","pārōr pugazhap paḍindēlōr empāvāy"],
+  meaning:"It is the month of Margazhi, a day of the full moon. Come, you finely adorned girls of prosperous Ayarpadi who wish to bathe! Narayana himself, son of Nandagopa of the sharp spear, the young lion of lovely-eyed Yashoda, dark as a cloud, with red eyes and a face like the sun and moon, will give us the drum (our goal), so that the world praises us.",
+  key:["mārgazhi","nīrāḍa","yasōdai iḷaṅsiṅgam","nārāyaṇanē","empāvāy"],ragas:["Nattai","Kalyani","Begada","Hamsadhwani"]},
+
+ {id:"kasturi",deity:"Krishna",lang:"Sanskrit",title:"Kastūrī Tilakaṁ",source:"Traditionally attributed to Līlāśuka, Śrī Kṛṣṇa Karṇāmṛtam",
+  lines:["kastūrī tilakaṁ lalāṭaphalakē vakṣaḥsthalē kaustubhaṁ","nāsāgrē navamauktikaṁ karatalē vēṇuṁ karē kaṅkaṇam","sarvāṅgē haricandanaṁ sulalitaṁ kaṇṭhē ca muktāvalī","gōpastrī pariveṣṭitō vijayatē gōpālacūḍāmaṇiḥ"],
+  meaning:"Musk tilaka on his forehead, the Kaustubha gem on his chest, a fresh pearl at the tip of his nose, the flute in his palm, bangles on his wrist, sandal paste all over his body, a lovely string of pearls at his throat: surrounded by the gopis, the crest-jewel of cowherds is victorious.",
+  key:["kastūrī tilakaṁ","vēṇuṁ","muktāvalī","vijayatē","gōpālacūḍāmaṇiḥ"],ragas:["Kambhoji","Kapi","Behag"]},
+ {id:"kararavinda",deity:"Krishna",lang:"Sanskrit",title:"Karāravindēna Padāravindaṁ",source:"Traditional (Bāla Mukundāṣṭakam)",
+  lines:["karāravindēna padāravindaṁ","mukhāravindē vinivēśayantam","vaṭasya patrasya puṭē śayānaṁ","bālaṁ mukundaṁ manasā smarāmi"],
+  meaning:"In my mind I remember the child Mukunda, lying in the fold of a banyan leaf, placing his lotus foot in his lotus mouth with his lotus hand.",
+  key:["padāravindaṁ","śayānaṁ","bālaṁ mukundaṁ","smarāmi"],ragas:["Neelambari","Kapi","Anandabhairavi","Hindolam"]},
+
+ {id:"vasudevasutam",deity:"Krishna",lang:"Sanskrit",title:"Vasudēvasutaṁ Dēvaṁ",source:"Traditional Krishna dhyana sloka",
+  lines:["vasudēvasutaṁ dēvaṁ","kaṁsacāṇūramardanam","dēvakīparamānandaṁ","kṛṣṇaṁ vandē jagadgurum"],
+  meaning:"I salute Krishna, the divine son of Vasudeva, destroyer of Kamsa and Chanura, the supreme joy of Devaki, the teacher of the world.",
+  key:["vasudēvasutaṁ","dēvakīparamānandaṁ","kṛṣṇaṁ","jagadgurum"],ragas:["Kambhoji","Mohanam","Kapi"]},
+
+ {id:"sri-rama-rama",deity:"Rama",lang:"Sanskrit",title:"Śrī Rāma Rāma Rāmēti",source:"Viṣṇu Sahasranāma (phalaśruti)",
+  lines:["śrī rāma rāma rāmēti","ramē rāmē manōramē","sahasranāma tattulyaṁ","rāmanāma varānanē"],
+  meaning:"Shiva tells Parvati: O beautiful-faced one, I delight in chanting 'Sri Rama, Rama, Rama'. The name of Rama is equal to the thousand names.",
+  key:["śrī rāma","manōramē","rāmanāma","varānanē"],ragas:["Sahana","Kambhoji","Madhyamavati"]},
+ {id:"apadam",deity:"Rama",lang:"Sanskrit",title:"Āpadām Apahartāraṁ",source:"Budha Kauśika, Śrī Rāma Rakṣā Stōtram",
+  lines:["āpadām apahartāraṁ","dātāraṁ sarvasampadām","lōkābhirāmaṁ śrīrāmaṁ","bhūyō bhūyō namāmyaham"],
+  meaning:"Again and again I bow to Sri Rama, who takes away all calamities, who gives every kind of wealth, and who delights the whole world.",
+  key:["apahartāraṁ","lōkābhirāmaṁ","śrīrāmaṁ","bhūyō bhūyō"],ragas:["Todi","Kambhoji","Kalyani"]},
+ {id:"ramaya",deity:"Rama",lang:"Sanskrit",title:"Rāmāya Rāmabhadrāya",source:"Budha Kauśika, Śrī Rāma Rakṣā Stōtram",
+  lines:["rāmāya rāmabhadrāya","rāmacandrāya vēdhasē","raghunāthāya nāthāya","sītāyāḥ patayē namaḥ"],
+  meaning:"Salutations to Rama, the auspicious Rama, Ramachandra, the creator, lord of the Raghus, the Lord, husband of Sita.",
+  key:["rāmāya","rāmacandrāya","raghunāthāya","sītāyāḥ"],ragas:["Hamsanandi","Mohanam","Sahana"]},
+
+ {id:"sarvamangala",deity:"Devi",lang:"Sanskrit",title:"Sarvamaṅgala Māṅgalyē",source:"Dēvī Māhātmyam (Durgā Saptaśatī)",
+  lines:["sarvamaṅgala māṅgalyē","śivē sarvārtha sādhikē","śaraṇyē tryambakē gauri","nārāyaṇi namō'stu tē"],
+  meaning:"O auspiciousness of all that is auspicious, consort of Shiva, who fulfils every aim, refuge of all, three-eyed Gauri, Narayani: salutations to you.",
+  key:["māṅgalyē","śaraṇyē","gauri","nārāyaṇi"],ragas:["Kalyani","Hamsadhwani","Madhyamavati","Saveri"]},
+ {id:"ya-devi",deity:"Devi",lang:"Sanskrit",title:"Yā Dēvī Sarvabhūtēṣu",source:"Dēvī Māhātmyam, ch. 5",
+  lines:["yā dēvī sarvabhūtēṣu","śaktirūpēṇa saṁsthitā","namastasyai namastasyai","namastasyai namō namaḥ"],
+  meaning:"To the Goddess who dwells in all beings as power (shakti): salutations to her, salutations to her, salutations again and again.",
+  key:["yā dēvī","śaktirūpēṇa","namastasyai"],ragas:["Shanmukhapriya","Varali","Simhendramadhyamam","Revati"]},
+
+ {id:"mahalakshmi",deity:"Lakshmi",lang:"Sanskrit",title:"Namastē'stu Mahāmāyē",source:"Mahālakṣmī Aṣṭakam (Padma Purāṇa tradition)",
+  lines:["namastē'stu mahāmāyē","śrīpīṭhē surapūjitē","śaṅkhacakragadāhastē","mahālakṣmi namō'stu tē"],
+  meaning:"Salutations to you, great Maya, seated on the throne of prosperity, worshipped by the gods, holding conch, discus and mace. O Mahalakshmi, salutations to you.",
+  key:["mahāmāyē","surapūjitē","mahālakṣmi"],ragas:["Sri","Kalyani","Latangi","Madhyamavati"]},
+
+ {id:"shadananam",deity:"Murugan",lang:"Sanskrit",title:"Ṣaḍānanaṁ Kuṅkumaraktavarṇaṁ",source:"Traditional Subrahmanya dhyana sloka",
+  lines:["ṣaḍānanaṁ kuṅkumaraktavarṇaṁ","mahāmatiṁ divyamayūravāhanam","rudrasya sūnuṁ suralōkanāthaṁ","brahmaṇyadēvaṁ śaraṇaṁ prapadyē"],
+  meaning:"I take refuge in the six-faced Lord, red as kumkum, of great wisdom, who rides the divine peacock, son of Rudra, lord of the heavens, the god devoted to dharma.",
+  key:["ṣaḍānanaṁ","mayūravāhanam","suralōkanāthaṁ","śaraṇaṁ prapadyē"],ragas:["Shanmukhapriya","Saveri","Kambhoji"]},
+ {id:"nal-en-seyyum",deity:"Murugan",lang:"Tamil",title:"Nāḷ En Seyyum",source:"Aruṇagirināthar, Kandar Alaṅgāram",
+  lines:["nāḷ en seyyum vinaidān en seyyum enai nāḍi vanda","kōḷ en seyyum koḍuṅgūtran en seyyum kumarēsar iru","tāḷum silambum saḍaṅgaiyum taṇḍaiyum saṇmugamum","tōḷum kaḍambum enakku munnē vandu tōndriḍinē"],
+  meaning:"What can the day (an inauspicious time) do, what can karma do, what can the planets that seek me out do, what can cruel Death do, when the two feet of Kumaresa, with their anklets, bells and ornaments, his six faces, his shoulders and his kadamba garland appear before me?",
+  key:["en seyyum","kumarēsar","saṇmugamum","tōndriḍinē"],ragas:["Shanmukhapriya","Kambhoji","Varali","Sindhubhairavi"]},
+
+ {id:"manojavam",deity:"Hanuman",lang:"Sanskrit",title:"Manōjavaṁ Mārutatulyavēgaṁ",source:"Budha Kauśika, Śrī Rāma Rakṣā Stōtram",
+  lines:["manōjavaṁ mārutatulyavēgaṁ","jitēndriyaṁ buddhimatāṁ variṣṭham","vātātmajaṁ vānarayūthamukhyaṁ","śrīrāmadūtaṁ śaraṇaṁ prapadyē"],
+  meaning:"I take refuge in the messenger of Sri Rama: swift as the mind, fast as the wind, master of his senses, foremost among the wise, son of the Wind, chief of the monkey army.",
+  key:["manōjavaṁ","variṣṭham","vātātmajaṁ","śrīrāmadūtaṁ"],ragas:["Begada","Kambhoji","Nattai"]},
+ {id:"buddhirbalam",deity:"Hanuman",lang:"Sanskrit",title:"Buddhir Balaṁ Yaśō Dhairyaṁ",source:"Traditional",
+  lines:["buddhir balaṁ yaśō dhairyaṁ","nirbhayatvam arōgatā","ajāḍyaṁ vākpaṭutvaṁ ca","hanumat smaraṇād bhavēt"],
+  meaning:"Intelligence, strength, fame, courage, fearlessness, health, alertness and eloquence come from remembering Hanuman.",
+  key:["dhairyaṁ","arōgatā","hanumat","bhavēt"],ragas:["Madhyamavati","Mohanam","Bilahari"]},
+
+ {id:"yatra-yatra",deity:"Hanuman",lang:"Sanskrit",title:"Yatra Yatra Raghunātha Kīrtanaṁ",source:"Traditional Hanuman sloka",
+  lines:["yatra yatra raghunātha kīrtanaṁ","tatra tatra kṛtamastakāñjalim","bāṣpavāri paripūrṇalōcanaṁ","mārutiṁ namata rākṣasāntakam"],
+  meaning:"Wherever the glory of Rama is sung, there Hanuman stands with palms joined above his head and eyes full of tears. Bow to Maruti, the destroyer of demons.",
+  key:["raghunātha kīrtanaṁ","paripūrṇalōcanaṁ","mārutiṁ","rākṣasāntakam"],ragas:["Madhyamavati","Kambhoji","Sindhubhairavi"]},
+
+ {id:"bhutanatha",deity:"Ayyappa",lang:"Sanskrit",title:"Bhūtanātha Sadānanda",source:"Traditional Śāstā sloka",
+  lines:["bhūtanātha sadānanda","sarvabhūta dayāpara","rakṣa rakṣa mahābāhō","śāstrē tubhyaṁ namō namaḥ"],
+  meaning:"O lord of all beings, ever blissful, compassionate to every creature, mighty-armed one, protect me, protect me. O Shasta, salutations to you again and again.",
+  key:["sadānanda","dayāpara","rakṣa rakṣa","mahābāhō"],ragas:["Revati","Saveri","Madhyamavati"]},
+
+ {id:"gurur-brahma",deity:"Guru",lang:"Sanskrit",title:"Gurur Brahmā Gurur Viṣṇuḥ",source:"Guru Gītā (Skanda Purāṇa tradition)",
+  lines:["gurur brahmā gurur viṣṇuḥ","gurur dēvō mahēśvaraḥ","guruḥ sākṣāt parabrahma","tasmai śrī guravē namaḥ"],
+  meaning:"The guru is Brahma, the guru is Vishnu, the guru is the god Maheshvara. The guru is the Supreme itself, seen directly. Salutations to that revered guru.",
+  key:["brahmā","mahēśvaraḥ","parabrahma","guravē"],ragas:["Kharaharapriya","Mohanam","Hamsadhwani","Sahana"]},
+ {id:"apara-karuna",deity:"Guru",lang:"Sanskrit",title:"Apāra Karuṇā Sindhuṁ",source:"Dhyana sloka on Sri Chandrasekharendra Saraswati (Kanchi Mahaperiyava)",
+  lines:["apāra karuṇā sindhuṁ","jñānadaṁ śāntarūpiṇam","śrī candraśēkhara guruṁ","praṇamāmi mudānvaham"],
+  meaning:"Every day I joyfully bow to Sri Chandrasekhara Guru, a boundless ocean of compassion, giver of wisdom, the embodiment of peace.",
+  key:["karuṇā sindhuṁ","śāntarūpiṇam","candraśēkhara","mudānvaham"],ragas:["Kharaharapriya","Sahana","Kalyani"]},
+ {id:"gajananam",deity:"Ganesha",lang:"Sanskrit",title:"Gajānanaṁ Bhūtagaṇādisēvitaṁ",source:"Traditional Ganesha sloka",
+  lines:["gajānanaṁ bhūtagaṇādisēvitaṁ","kapitthajambūphalasārabhakṣitam","umāsutaṁ śōkavināśakāraṇaṁ","namāmi vighnēśvarapādapaṅkajam"],
+  meaning:"I bow to the lotus feet of Vighneshvara, the elephant-faced one served by the ganas, who enjoys wood-apple and rose-apple fruits, the son of Uma, the cause of the end of sorrow.",
+  key:["gajānanaṁ","umāsutaṁ","namāmi","pādapaṅkajam"],ragas:["Nattai","Hamsadhwani","Mohanam"]},
+ {id:"mushika",deity:"Ganesha",lang:"Sanskrit",title:"Mūṣikavāhana Mōdakahasta",source:"Traditional Ganesha sloka",
+  lines:["mūṣikavāhana mōdakahasta","cāmarakarṇa vilambitasūtra","vāmanarūpa mahēśvaraputra","vighnavināyaka pāda namastē"],
+  meaning:"O rider of the mouse, holding a modaka, with ears like fans and the sacred thread hanging down, short in form, son of Maheshvara, remover of obstacles: I bow at your feet.",
+  key:["mūṣikavāhana","mahēśvaraputra","vināyaka","namastē"],ragas:["Hamsadhwani","Mohanam","Bilahari"]},
+ {id:"aindu-karattanai",deity:"Ganesha",lang:"Tamil",title:"Aindu Karattanai",source:"Tirumūlar, Tirumantiram (invocation)",
+  lines:["aindu karattanai yānai mugattanai","indin iḷampirai pōlum eyirranai","nandi magan tanai ñānak kozhundinaip","pundiyil vaittaḍi pōrrugindrēnē"],
+  meaning:"The five-armed, elephant-faced one, whose tusk is like the young crescent moon, the son of Nandi (Shiva), the bud of wisdom: I place him in my mind and praise his feet.",
+  key:["yānai mugattanai","iḷampirai","ñānak kozhundinai","pōrrugindrēnē"],ragas:["Nattai","Hamsadhwani","Kalyani"]},
+ {id:"palum-telitenum",deity:"Ganesha",lang:"Tamil",title:"Pālum Teḷitēnum",source:"Avvaiyar, Nalvazhi (invocation)",
+  lines:["pālum teḷitēnum pāgum paruppum ivai","nālum kalandunakku nān taruvēn kōlañsey","tuṅgak karimugattut tūmaṇiyē nī enakku","saṅgat tamizh mūndrum tā"],
+  meaning:"Milk, clear honey, jaggery syrup and lentils: I will mix these four and offer them to you. O pure gem with the noble elephant face, give me in return the three branches of Sangam Tamil (prose, music and drama).",
+  key:["teḷitēnum","karimugattu","tūmaṇiyē","tā"],ragas:["Hamsadhwani","Mohanam","Begada"]},
+
+ {id:"sarada-saradambhoja",deity:"Saraswati",lang:"Sanskrit",title:"Śāradā Śāradāmbhōja Vadanā",source:"Traditional Saraswati sloka",
+  lines:["śāradā śāradāmbhōja","vadanā vadanāmbujē","sarvadā sarvadāsmākaṁ","sannidhiṁ sannidhiṁ kriyāt"],
+  meaning:"May Sharada, whose face is like an autumn lotus and who dwells on the lotus of the mouth (as speech), the giver of everything, always grant us her presence and her treasure.",
+  key:["śāradā","vadanāmbujē","sarvadā","sannidhiṁ"],ragas:["Kalyani","Saveri","Hindolam"]},
+ {id:"namaste-sarade",deity:"Saraswati",lang:"Sanskrit",title:"Namastē Śāradē Dēvi",source:"Traditional Saraswati sloka",
+  lines:["namastē śāradē dēvi","kāśmīrapuravāsini","tvām ahaṁ prārthayē nityaṁ","vidyādānaṁ ca dēhi mē"],
+  meaning:"Salutations to you, Goddess Sharada, who dwells in Kashmir. I pray to you always: grant me the gift of learning.",
+  key:["śāradē dēvi","kāśmīrapuravāsini","prārthayē","dēhi mē"],ragas:["Amritavarshini","Kalyani","Hamsadhwani"]},
+
+ {id:"vande-sambhum",deity:"Shiva",lang:"Sanskrit",title:"Vandē Śambhum Umāpatiṁ",source:"Traditional Shiva dhyana sloka",
+  lines:["vandē śambhum umāpatiṁ suraguruṁ vandē jagatkāraṇaṁ","vandē pannagabhūṣaṇaṁ mṛgadharaṁ vandē paśūnāṁ patim","vandē sūryaśaśāṅkavahninayanaṁ vandē mukundapriyaṁ","vandē bhaktajanāśrayaṁ ca varadaṁ vandē śivaṁ śaṅkaram"],
+  meaning:"I salute Shambhu, lord of Uma, teacher of the gods, cause of the world; adorned with serpents, holding the deer, lord of all beings; whose eyes are the sun, moon and fire, dear to Mukunda; refuge of devotees, giver of boons: I salute Shiva, Shankara.",
+  key:["vandē śambhum","jagatkāraṇaṁ","mukundapriyaṁ","śivaṁ śaṅkaram"],ragas:["Kambhoji","Shankarabharanam","Revati","Shanmukhapriya"]},
+ {id:"mauna-vyakhya",deity:"Shiva",lang:"Sanskrit",title:"Mauna Vyākhyā Prakaṭita",source:"Dakṣiṇāmūrti dhyana sloka",
+  lines:["mauna vyākhyā prakaṭita parabrahma tattvaṁ yuvānaṁ","varṣiṣṭhāntē vasad ṛṣigaṇair āvṛtaṁ brahmaniṣṭhaiḥ","ācāryēndraṁ karakalita cinmudram ānandamūrtiṁ","svātmārāmaṁ muditavadanaṁ dakṣiṇāmūrtim īḍē"],
+  meaning:"I praise Dakshinamurti, the youthful one who reveals the truth of the Supreme through silent teaching, surrounded by aged sages steeped in Brahman; the greatest of teachers, showing the chin-mudra, the embodiment of bliss, delighting in the Self, with a joyful face.",
+  key:["mauna vyākhyā","yuvānaṁ","ānandamūrtiṁ","dakṣiṇāmūrtim"],ragas:["Shankarabharanam","Todi","Revati"]},
+ {id:"thodudaiya",deity:"Shiva",lang:"Tamil",title:"Tōḍuḍaiya Seviyan",source:"Tirujñāna Sambandar, Tēvāram 1.1 (Sirkazhi)",
+  lines:["tōḍuḍaiya seviyan viḍaiyēriyōr tūveṇmadi sūḍik","kāḍuḍaiya suḍalaip poḍipūsi en uḷḷaṅkavar kaḷvan","ēḍuḍaiya malarān munainaṭ paṇindēttha aruḷseyda","pīḍuḍaiya piramāpuram mēviya pemmān ivan andrē"],
+  meaning:"He wears an earring, rides the bull, and wears the pure white crescent; smeared with ash from the cremation ground, he is the thief who stole my heart. He is the great Lord of Brahmapuram (Sirkazhi), who blessed Brahma when he worshipped long ago. Isn't it he?",
+  key:["tōḍuḍaiya seviyan","tūveṇmadi","uḷḷaṅkavar kaḷvan","ivan andrē"],ragas:["Nattai","Kambhoji","Hamsadhwani"]},
+ {id:"pitta-piraisudi",deity:"Shiva",lang:"Tamil",title:"Pittā Piraisūḍī",source:"Sundarar, Tēvāram 7.1 (Tiruvennainallur)",
+  lines:["pittā piraisūḍī perumānē aruḷāḷā","ettān maravādē ninaikkindrēn manattu unnai","vaittāy peṇṇait tenpāl veṇṇey nallūr aruḷturaiyuḷ","attā unakku āḷāy ini allēn enalāmē"],
+  meaning:"O Mad One, wearer of the crescent, great Lord, gracious one! I think of you without forgetting; you placed yourself in my mind. O Father of Arulturai in Vennainallur, south of the Pennai river: having become your servant, can I now say I am not?",
+  key:["pittā","perumānē","aruḷāḷā","attā","enalāmē"],ragas:["Hindolam","Kalyani","Sindhubhairavi"]},
+ {id:"kunitta-puruvamum",deity:"Shiva",lang:"Tamil",title:"Kunitta Puruvamum",source:"Appar (Tirunavukkarasar), Tēvāram, 4th Tirumurai (Chidambaram)",
+  lines:["kunitta puruvamum kovvaich sevvāyil kumiṇsirippum","panitta saḍaiyum pavaḷampōl mēniyil pālveṇṇīrum","inittam uḍaiya eḍutta porpādamum kāṇapperrāl","manitap piraviyum vēṇḍuvadē inda mānilattē"],
+  meaning:"The arched brow, the gentle smile on red lips like the kovvai fruit, the cool matted locks, the milk-white ash on a coral body, and the sweet raised golden foot of the dancing Lord: if one can see these, then even a human birth on this earth is worth wishing for.",
+  key:["kumiṇsirippum","pavaḷampōl","eḍutta porpādamum","vēṇḍuvadē"],ragas:["Kambhoji","Kharaharapriya","Behag","Mukhari"]},
+ {id:"pal-ninaindu",deity:"Shiva",lang:"Tamil",title:"Pāl Ninaindūṭṭum Tāyinum",source:"Māṇikkavāsagar, Tiruvāsagam (Piḍitta Pattu)",
+  lines:["pāl ninaindūṭṭum tāyinum sālap parindu nī pāviyēnuḍaiya","ūninai urukki uḷḷoḷi perukki ulappilā ānandamāya","tēninaich sorindu purampuram tirinda selvamē sivaperumānē","yān unait toḍarndu sikkenap piḍittēn eṅgezhundaruḷuvadu iniyē"],
+  meaning:"More tenderly than a mother who feeds her child before it even asks, you melted the flesh of this sinner, swelled the inner light, and poured the honey of endless bliss. O treasure who followed me everywhere, Shiva! I have followed you and caught hold of you firmly. Where can you go now?",
+  key:["tāyinum","ānandamāya","selvamē sivaperumānē","iniyē"],ragas:["Mukhari","Subhapantuvarali","Saveri"]},
+
+ {id:"pachai-mamalai",deity:"Vishnu",lang:"Tamil",title:"Paccai Mā Malai Pōl Mēni",source:"Toṇḍaraḍippoḍi Āzhvār, Tirumālai 2 (Srirangam)",
+  lines:["paccai mā malai pōl mēni pavaḷa vāy kamalach seṅgaṇ","acyutā amarar ērē āyar tam kozhundē ennum","iccuvai tavira yān pōy indira lōkam āḷum","accuvai perinum vēṇḍēn araṅga mā nagaruḷānē"],
+  meaning:"A body like a great green mountain, coral lips, red lotus eyes: calling out 'Achyuta! Bull among the gods! Darling of the cowherds!', O Lord of great Srirangam, I would not leave this sweetness even to gain the sweetness of ruling Indra's heaven.",
+  key:["paccai mā malai","kamalach seṅgaṇ","acyutā","araṅga mā nagaruḷānē"],ragas:["Kambhoji","Begada","Sahana","Kalyani"]},
+ {id:"vaaranam-ayiram",deity:"Vishnu",lang:"Tamil",title:"Vāraṇam Āyiram",source:"Āṇḍāḷ, Nācciyār Tirumozhi 6.1",
+  lines:["vāraṇam āyiram sūzha valam seydu","nāraṇa nambi naḍakkindrān endredir","pūraṇa porkuḍam vaittup purameṅgum","tōraṇam nāṭṭak kanāk kaṇḍēn tōzhī nān"],
+  meaning:"O friend, I dreamt that Narayana came walking in procession, surrounded by a thousand elephants, and that full golden pots were set out to receive him and festoons were raised everywhere.",
+  key:["vāraṇam āyiram","nāraṇa nambi","tōraṇam","tōzhī nān"],ragas:["Kalyani","Sahana","Kapi"]},
+ {id:"kausalya-supraja",deity:"Vishnu",lang:"Sanskrit",title:"Kausalyā Suprajā Rāma",source:"Vālmīki Rāmāyaṇa (Bālakāṇḍa); opens the Venkateśa Suprabhātam",
+  lines:["kausalyā suprajā rāma","pūrvā sandhyā pravartatē","uttiṣṭha naraśārdūla","kartavyaṁ daivam āhnikam"],
+  meaning:"O Rama, noble son of Kausalya, the eastern dawn is breaking. Arise, tiger among men; the day's sacred duties must be done.",
+  key:["kausalyā","rāma","uttiṣṭha","āhnikam"],ragas:["Revati","Saveri","Mohanam"]},
+ {id:"sriyah-kantaya",deity:"Vishnu",lang:"Sanskrit",title:"Śriyaḥ Kāntāya Kalyāṇanidhayē",source:"Śrī Vēṅkaṭēśa Maṅgaḷam",
+  lines:["śriyaḥ kāntāya kalyāṇa","nidhayē nidhayē'rthinām","śrīvēṅkaṭanivāsāya","śrīnivāsāya maṅgalam"],
+  meaning:"May all auspiciousness be to Srinivasa who dwells on Venkatam: the beloved of Lakshmi, the treasure-house of auspicious qualities, the treasure of those who seek.",
+  key:["kāntāya","kalyāṇa","śrīvēṅkaṭa","maṅgalam"],ragas:["Madhyamavati","Surutti","Sindhubhairavi"]},
+ {id:"ugram-viram",deity:"Vishnu",lang:"Sanskrit",title:"Ugraṁ Vīraṁ Mahāviṣṇuṁ",source:"Narasimha mantra-sloka (Mantrarāja Pada Stōtram)",
+  lines:["ugraṁ vīraṁ mahāviṣṇuṁ","jvalantaṁ sarvatōmukham","nṛsiṁhaṁ bhīṣaṇaṁ bhadraṁ","mṛtyumṛtyuṁ namāmyaham"],
+  meaning:"I bow to Narasimha, the fierce, heroic, great Vishnu, blazing, facing every direction, terrifying yet auspicious, the death of Death itself.",
+  key:["ugraṁ vīraṁ","jvalantaṁ","nṛsiṁhaṁ","namāmyaham"],ragas:["Shanmukhapriya","Nattai","Varali","Kalyani"]},
+ {id:"narayaniyam-1",deity:"Vishnu",lang:"Sanskrit",title:"Sāndrānandāvabōdhātmakam",source:"Mēlpattūr Nārāyaṇa Bhaṭṭatiri, Nārāyaṇīyam 1.1 (Guruvayur)",
+  lines:["sāndrānandāvabōdhātmakam anupamitaṁ kāladēśāvadhibhyāṁ","nirmuktaṁ nityamuktaṁ nigamaśatasahasrēṇa nirbhāsyamānam","aspaṣṭaṁ dṛṣṭamātrē punar urupuruṣārthātmakaṁ brahma tattvaṁ","tat tāvad bhāti sākṣād gurupavanapurē hanta bhāgyaṁ janānām"],
+  meaning:"The Supreme Reality, made of dense bliss and awareness, beyond comparison, free of the limits of time and place, eternally free, revealed by countless Vedic texts yet never clearly seen, the highest goal of life: that very Brahman shines visibly in Guruvayur. Oh, the good fortune of the people!",
+  key:["sāndrānanda","nityamuktaṁ","gurupavanapurē","bhāgyaṁ janānām"],ragas:["Kalyani","Todi","Kambhoji","Madhyamavati"]},
+ {id:"ala-vaikuntha",deity:"Vishnu",lang:"Telugu",title:"Ala Vaikuṇṭhapurambulō",source:"Bammera Pōtana, Āndhra Mahā Bhāgavatamu (Gajendra Mōkṣam)",
+  lines:["ala vaikuṇṭhapurambulō nagarilō nā mūla saudhambu dāpala","mandāravanāntarāmṛtasaraḥ prāntēndukāntōpalōtpala","paryaṅka ramāvinōdi yagu nāpannaprasannuṇḍu vihvala nāgēndramu","'pāhi pāhi' yanaṅ guyyālinci saṁrambhiyai"],
+  meaning:"There, in the city of Vaikuntha, in the corner palace beside the mandara grove by the lake of nectar, on a couch of moonstone and lotuses, the Lord who delights in Lakshmi and is gracious to those in distress heard the anguished elephant king cry 'Save me, save me!' and rushed forth.",
+  key:["vaikuṇṭhapurambulō","ramāvinōdi","pāhi pāhi","saṁrambhiyai"],ragas:["Kalyani","Kambhoji","Shanmukhapriya","Madhyamavati"]},
+
+ {id:"krishnaya-vasudevaya",deity:"Krishna",lang:"Sanskrit",title:"Kṛṣṇāya Vāsudēvāya",source:"Śrīmad Bhāgavatam (traditional)",
+  lines:["kṛṣṇāya vāsudēvāya","harayē paramātmanē","praṇataklēśanāśāya","gōvindāya namō namaḥ"],
+  meaning:"Salutations again and again to Krishna, son of Vasudeva, Hari, the Supreme Self, who destroys the suffering of those who bow to him, Govinda.",
+  key:["kṛṣṇāya","paramātmanē","praṇataklēśa","gōvindāya"],ragas:["Kapi","Mohanam","Kambhoji"]},
+ {id:"meghair-meduram",deity:"Krishna",lang:"Sanskrit",title:"Mēghair Mēduram Ambaraṁ",source:"Jayadēva, Gīta Gōvindam 1.1",
+  lines:["mēghair mēduram ambaraṁ vanabhuvaḥ śyāmās tamāladrumair","naktaṁ bhīrur ayaṁ tvam ēva tad imaṁ rādhē gṛhaṁ prāpaya","itthaṁ nandanidēśataś calitayōḥ pratyadhvakuñjadrumaṁ","rādhāmādhavayōr jayanti yamunākūlē rahaḥkēlayaḥ"],
+  meaning:"'The sky is thick with clouds, the forest dark with tamala trees; he is afraid at night, so Radha, you take him home.' Sent off by Nanda's words, Radha and Madhava wander among the groves along the way, and their secret play on the Yamuna's bank is glorious.",
+  key:["mēghair mēduram","rādhē","rādhāmādhavayōr","yamunākūlē"],ragas:["Neelambari","Behag","Kapi","Hindolam"]},
+ {id:"kakkai-siraginile",deity:"Krishna",lang:"Tamil",title:"Kākkaic Siraginilē",source:"Subramania Bharathiyar (Kaṇṇan Pāṭṭu)",
+  lines:["kākkaic siraginilē nandalālā ninran kariya niram tōndrudaiyē nandalālā","pārkkum maraṅgaḷ ellām nandalālā ninran paccai niram tōndrudaiyē nandalālā","kēṭkum oliyil ellām nandalālā ninran gītam isaikkudaiyē nandalālā","tīkkuḷ viralai vaittāl nandalālā ninnait tīṇḍum inbam tōndrudaiyē nandalālā"],
+  meaning:"In the crow's wing I see your dark color, Nandalala; in every tree I see your green; in every sound I hear your song; and if I put my finger in fire, I feel the joy of your touch.",
+  key:["nandalālā","kariya niram","gītam","inbam"],ragas:["Kapi","Sindhubhairavi","Behag"]},
+
+ {id:"lokabhiramam",deity:"Rama",lang:"Sanskrit",title:"Lōkābhirāmaṁ Raṇaraṅgadhīraṁ",source:"Budha Kauśika, Śrī Rāma Rakṣā Stōtram",
+  lines:["lōkābhirāmaṁ raṇaraṅgadhīraṁ","rājīvanētraṁ raghuvaṁśanātham","kāruṇyarūpaṁ karuṇākaraṁ taṁ","śrīrāmacandraṁ śaraṇaṁ prapadyē"],
+  meaning:"I take refuge in Sri Ramachandra: the delight of the world, steadfast on the battlefield, lotus-eyed, lord of the Raghu clan, the very form of compassion, the source of mercy.",
+  key:["lōkābhirāmaṁ","rājīvanētraṁ","kāruṇyarūpaṁ","śaraṇaṁ prapadyē"],ragas:["Kambhoji","Mohanam","Kalyani"]},
+ {id:"vame-bhumisuta",deity:"Rama",lang:"Sanskrit",title:"Vāmē Bhūmisutā",source:"Traditional Rama dhyana sloka (Rāma Pañcāyatana)",
+  lines:["vāmē bhūmisutā puraśca hanumān paścāt sumitrāsutaḥ","śatrughnō bharataśca pārśvadalayōr vāyvādikōṇēṣu ca","sugrīvaśca vibhīṣaṇaśca yuvarāṭ tārāsutō jāmbavān","madhyē nīlasarōjakōmalaruciṁ rāmaṁ bhajē śyāmalam"],
+  meaning:"Sita on his left, Hanuman in front, Lakshmana behind, Shatrughna and Bharata at his sides, and Sugriva, Vibhishana, prince Angada and Jambavan at the corners: in the middle I worship the dark Rama, soft and lustrous as a blue lotus.",
+  key:["bhūmisutā","hanumān","nīlasarōja","rāmaṁ bhajē"],ragas:["Todi","Kalyani","Sahana","Madhyamavati"]},
+ {id:"kujantam",deity:"Rama",lang:"Sanskrit",title:"Kūjantaṁ Rāma Rāmēti",source:"Traditional sloka on Vālmīki",
+  lines:["kūjantaṁ rāma rāmēti","madhuraṁ madhurākṣaram","āruhya kavitāśākhāṁ","vandē vālmīki kōkilam"],
+  meaning:"I salute Valmiki, the cuckoo who, perched on the branch of poetry, sweetly sings the sweet syllables 'Rama, Rama'.",
+  key:["rāma rāmēti","madhurākṣaram","kavitāśākhāṁ","kōkilam"],ragas:["Hindolam","Mohanam","Kalyani"]},
+ {id:"ulagam-yavaiyum",deity:"Rama",lang:"Tamil",title:"Ulagam Yāvaiyum",source:"Kambar, Kamba Rāmāyaṇam (Bāla Kāṇḍam, invocation)",
+  lines:["ulagam yāvaiyum tām uḷa ākkalum","nilai peruttalum nīkkalum nīṅgalā","alagilā viḷaiyāṭṭuḍaiyār avar","talaivar annavarkkē saraṇ nāṅgaḷē"],
+  meaning:"He who creates all the worlds, sustains them and dissolves them, as his endless, unceasing play: he is our Lord, and to him alone we surrender.",
+  key:["ulagam yāvaiyum","alagilā viḷaiyāṭṭu","talaivar","saraṇ nāṅgaḷē"],ragas:["Kambhoji","Todi","Kalyani"]},
+
+ {id:"sivah-saktya",deity:"Devi",lang:"Sanskrit",title:"Śivaḥ Śaktyā Yuktō",source:"Ādi Śaṅkara, Saundarya Laharī 1",
+  lines:["śivaḥ śaktyā yuktō yadi bhavati śaktaḥ prabhavituṁ","na cēd ēvaṁ dēvō na khalu kuśalaḥ spanditum api","atas tvām ārādhyāṁ hariharaviriñcādibhir api","praṇantuṁ stōtuṁ vā katham akṛtapuṇyaḥ prabhavati"],
+  meaning:"Only when united with Shakti is Shiva able to create; otherwise the god cannot even stir. So how can one without merit bow to or praise you, who are worshipped even by Vishnu, Shiva and Brahma?",
+  key:["śivaḥ śaktyā","spanditum","ārādhyāṁ","akṛtapuṇyaḥ"],ragas:["Kalyani","Todi","Shanmukhapriya","Varali"]},
+ {id:"sindurarunavigraham",deity:"Devi",lang:"Sanskrit",title:"Sindūrāruṇavigrahāṁ",source:"Lalitā Sahasranāma (dhyana sloka)",
+  lines:["sindūrāruṇavigrahāṁ trinayanāṁ māṇikyamaulisphurat","tārānāyakaśēkharāṁ smitamukhīm āpīnavakṣōruhām","pāṇibhyām alipūrṇaratnacaṣakaṁ raktōtpalaṁ bibhratīṁ","saumyāṁ ratnaghaṭasthaparaktacaraṇāṁ dhyāyēt parām ambikām"],
+  meaning:"Meditate on the supreme Mother: vermilion-red in form, three-eyed, her crown shining with rubies and the moon, smiling, holding a jeweled cup and a red lotus, gentle, her red feet resting on a jeweled pot.",
+  key:["sindūrāruṇa","smitamukhīm","raktōtpalaṁ","parām ambikām"],ragas:["Kalyani","Sri","Saveri"]},
+ {id:"annapurne",deity:"Devi",lang:"Sanskrit",title:"Annapūrṇē Sadāpūrṇē",source:"Ādi Śaṅkara, Annapūrṇā Stōtram",
+  lines:["annapūrṇē sadāpūrṇē","śaṅkaraprāṇavallabhē","jñānavairāgyasiddhyarthaṁ","bhikṣāṁ dēhi ca pārvati"],
+  meaning:"O Annapurna, ever full, dearer to Shankara than his life: O Parvati, give me alms, that I may attain wisdom and detachment.",
+  key:["annapūrṇē","sadāpūrṇē","prāṇavallabhē","pārvati"],ragas:["Saveri","Kalyani","Hindolam"]},
+ {id:"saranagata",deity:"Devi",lang:"Sanskrit",title:"Śaraṇāgata Dīnārta",source:"Dēvī Māhātmyam (Nārāyaṇī Stuti)",
+  lines:["śaraṇāgata dīnārta","paritrāṇa parāyaṇē","sarvasyārtiharē dēvi","nārāyaṇi namō'stu tē"],
+  meaning:"O Goddess devoted to rescuing the helpless and afflicted who seek refuge, remover of everyone's suffering: Narayani, salutations to you.",
+  key:["śaraṇāgata","paritrāṇa","ārtiharē","nārāyaṇi"],ragas:["Mukhari","Subhapantuvarali","Kharaharapriya"]},
+ {id:"udikkindra",deity:"Devi",lang:"Tamil",title:"Udikkindra Seṅgadir",source:"Abhirāmi Bhaṭṭar, Abhirāmi Andādi 1",
+  lines:["udikkindra seṅgadir uccit tilagam uṇarvuḍaiyōr","madikkindra māṇikkam mādhuḷam pōdu malark kamalai","tudikkindra min koḍi men kaḍik kuṅguma tōyam enna","vidikkindra mēni abhirāmi endan vizhut tuṇaiyē"],
+  meaning:"Like the rising red sun, like the tilaka at the parting of the hair, like the ruby prized by the wise, like the pomegranate flower, a lightning-vine praised by Lakshmi on the lotus, her body glowing like fragrant kumkum water: Abhirami is my true companion.",
+  key:["seṅgadir","māṇikkam","abhirāmi","vizhut tuṇaiyē"],ragas:["Kalyani","Saveri","Sahana","Sindhubhairavi"]},
+
+ {id:"lakshmim-kshira",deity:"Lakshmi",lang:"Sanskrit",title:"Lakṣmīṁ Kṣīrasamudrarājatanayāṁ",source:"Traditional Lakshmi dhyana sloka",
+  lines:["lakṣmīṁ kṣīrasamudrarājatanayāṁ śrīraṅgadhāmēśvarīṁ","dāsībhūtasamastadēvavanitāṁ lōkaikadīpāṅkurām","śrīmanmandakaṭākṣalabdhavibhava brahmēndragaṅgādharāṁ","tvāṁ trailōkyakuṭumbinīṁ sarasijāṁ vandē mukundapriyām"],
+  meaning:"I salute you, Lakshmi, daughter of the king of the milk ocean, queen of Srirangam, served by all the celestial women, the one lamp of the world, by whose gentle glance Brahma, Indra and Shiva gained their glory, mistress of the three worlds, born of the lotus, beloved of Mukunda.",
+  key:["kṣīrasamudra","śrīraṅgadhāmēśvarīṁ","lōkaikadīpāṅkurām","mukundapriyām"],ragas:["Sri","Kalyani","Madhyamavati","Latangi"]},
+
+ {id:"jnanasakti",deity:"Murugan",lang:"Sanskrit",title:"Jñānaśaktidhara Skanda",source:"Traditional Subrahmanya sloka",
+  lines:["jñānaśaktidhara skanda","vallīkalyāṇasundara","dēvasēnāmanaḥkānta","kārtikēya namō'stu tē"],
+  meaning:"O Skanda, bearer of the spear of wisdom, handsome bridegroom of Valli, beloved of Devasena, Karttikeya: salutations to you.",
+  key:["jñānaśaktidhara","vallīkalyāṇa","dēvasēnā","kārtikēya"],ragas:["Shanmukhapriya","Kalyani","Mohanam"]},
+ {id:"mayuradhirudham",deity:"Murugan",lang:"Sanskrit",title:"Mayūrādhirūḍhaṁ",source:"Ādi Śaṅkara, Subrahmaṇya Bhujaṅgam",
+  lines:["mayūrādhirūḍhaṁ mahāvākyagūḍhaṁ","manōhāridēhaṁ mahaccittagēham","mahīdēvadēvaṁ mahāvēdabhāvaṁ","mahādēvabālaṁ bhajē lōkapālam"],
+  meaning:"I worship the protector of the worlds, the child of Mahadeva: mounted on the peacock, hidden in the great Vedic sayings, with an enchanting form, dwelling in the hearts of the great, god of the learned, the essence of the Vedas.",
+  key:["mayūrādhirūḍhaṁ","manōhāridēhaṁ","mahādēvabālaṁ","lōkapālam"],ragas:["Shanmukhapriya","Hamsadhwani","Kambhoji"]},
+ {id:"erumayil",deity:"Murugan",lang:"Tamil",title:"Ērumayil Ēri",source:"Aruṇagirināthar, Tiruppugazh (Tiruvannamalai)",
+  lines:["ērumayil ēri viḷaiyāḍu mugam ondrē","īsaruḍan ñānamozhi pēsu mugam ondrē","kūrum aḍiyārgaḷ vinai tīrkku mugam ondrē","kundruruva vēl vāṅgi ninra mugam ondrē","mārupaḍu sūrarai vadaitta mugam ondrē","vaḷḷiyai maṇam puṇara vanda mugam ondrē","ārumugam āna poruḷ nī aruḷal vēṇḍum","ādi aruṇācalam amarnda perumāḷē"],
+  meaning:"One face that plays riding the peacock; one that speaks words of wisdom with Shiva; one that ends the karma of devotees who praise you; one that held the spear that pierced the mountain; one that slew the hostile Suras; one that came to marry Valli. Grace me with the meaning of your six faces, O Lord dwelling at ancient Arunachala.",
+  key:["mugam ondrē","ñānamozhi","ārumugam","perumāḷē"],ragas:["Shanmukhapriya","Kambhoji","Hamsadhwani","Sindhubhairavi"]},
+
+ {id:"anjananandanam",deity:"Hanuman",lang:"Sanskrit",title:"Añjanānandanaṁ Vīraṁ",source:"Traditional Hanuman sloka",
+  lines:["añjanānandanaṁ vīraṁ","jānakīśōkanāśanam","kapīśam akṣahantāraṁ","vandē laṅkābhayaṅkaram"],
+  meaning:"I salute the hero, son of Anjana, who ended Sita's sorrow, lord of the monkeys, slayer of Aksha, terror of Lanka.",
+  key:["añjanānandanaṁ","jānakī","kapīśam","laṅkābhayaṅkaram"],ragas:["Begada","Nattai","Kambhoji"]},
+ {id:"goshpadikrita",deity:"Hanuman",lang:"Sanskrit",title:"Gōṣpadīkṛta Vārāśiṁ",source:"Traditional Hanuman sloka",
+  lines:["gōṣpadīkṛta vārāśiṁ","maśakīkṛta rākṣasam","rāmāyaṇa mahāmālā","ratnaṁ vandē'nilātmajam"],
+  meaning:"I salute the son of the Wind, who made the ocean as small as a calf's hoofprint and the demons as small as mosquitoes, the jewel in the great garland of the Ramayana.",
+  key:["gōṣpadīkṛta","rāmāyaṇa","mahāmālā","anilātmajam"],ragas:["Kambhoji","Madhyamavati","Bilahari"]},
+
+ {id:"akhanda",deity:"Guru",lang:"Sanskrit",title:"Akhaṇḍamaṇḍalākāraṁ",source:"Guru Gītā / Guru Stōtram",
+  lines:["akhaṇḍamaṇḍalākāraṁ","vyāptaṁ yēna carācaram","tatpadaṁ darśitaṁ yēna","tasmai śrīguravē namaḥ"],
+  meaning:"Salutations to the guru who has shown me the state of That which pervades everything, moving and unmoving, in the form of the unbroken whole.",
+  key:["akhaṇḍa","carācaram","darśitaṁ","śrīguravē"],ragas:["Kharaharapriya","Sahana","Kalyani"]},
+ {id:"ajnana-timira",deity:"Guru",lang:"Sanskrit",title:"Ajñānatimirāndhasya",source:"Guru Gītā / Guru Stōtram",
+  lines:["ajñānatimirāndhasya","jñānāñjanaśalākayā","cakṣur unmīlitaṁ yēna","tasmai śrīguravē namaḥ"],
+  meaning:"Salutations to the guru who, with the collyrium stick of knowledge, opened the eyes of one blinded by the darkness of ignorance.",
+  key:["ajñānatimira","jñānāñjana","unmīlitaṁ","śrīguravē"],ragas:["Hamsadhwani","Saveri","Mohanam"]},
+ {id:"vyasaya",deity:"Guru",lang:"Sanskrit",title:"Vyāsāya Viṣṇurūpāya",source:"Viṣṇu Sahasranāma (pūrvabhāga)",
+  lines:["vyāsāya viṣṇurūpāya","vyāsarūpāya viṣṇavē","namō vai brahmanidhayē","vāsiṣṭhāya namō namaḥ"],
+  meaning:"Salutations to Vyasa, who is a form of Vishnu, and to Vishnu in the form of Vyasa; salutations again and again to the treasure-house of the Veda, the descendant of Vasishtha.",
+  key:["vyāsāya","viṣṇurūpāya","brahmanidhayē","namō namaḥ"],ragas:["Kharaharapriya","Kambhoji","Revati"]},
+ {id:"sruti-smriti",deity:"Guru",lang:"Sanskrit",title:"Śrutismṛtipurāṇānām",source:"Traditional sloka on Ādi Śaṅkara",
+  lines:["śrutismṛtipurāṇānām","ālayaṁ karuṇālayam","namāmi bhagavatpāda","śaṅkaraṁ lōkaśaṅkaram"],
+  meaning:"I bow to the revered Shankara, the abode of the Vedas, smritis and puranas, the abode of compassion, who brings blessings to the world.",
+  key:["karuṇālayam","bhagavatpāda","śaṅkaraṁ","lōkaśaṅkaram"],ragas:["Shankarabharanam","Saveri","Madhyamavati"]}
+
+];
+
+/* mood keys: bright, majestic, devotional, pathos, serene, light */
+const MOODS = {bright:"Bright & auspicious",majestic:"Majestic & heroic",devotional:"Devotional & tender",pathos:"Pathos & longing",serene:"Serene & meditative",light:"Light / concluding"};
+const RAGAS = [
+ ["Hamsadhwani",29,"none","bright","S R2 G3 P N3 Ṡ","Ṡ N3 P G3 R2 S"],
+ ["Nattai",36,"M1","majestic","S R3 G3 M1 P D3 N3 Ṡ","Ṡ N3 P M1 R3 S"],
+ ["Gambhira Nattai",36,"M1","majestic","S G3 M1 P N3 Ṡ","Ṡ N3 P M1 G3 S"],
+ ["Mohanam",28,"none","bright","S R2 G3 P D2 Ṡ","Ṡ D2 P G3 R2 S"],
+ ["Kalyani",65,"M2","majestic","S R2 G3 M2 P D2 N3 Ṡ","Ṡ N3 D2 P M2 G3 R2 S"],
+ ["Shankarabharanam",29,"M1","majestic","S R2 G3 M1 P D2 N3 Ṡ","Ṡ N3 D2 P M1 G3 R2 S"],
+ ["Kharaharapriya",22,"M1","devotional","S R2 G2 M1 P D2 N2 Ṡ","Ṡ N2 D2 P M1 G2 R2 S"],
+ ["Todi",8,"M1","pathos","S R1 G2 M1 P D1 N2 Ṡ","Ṡ N2 D1 P M1 G2 R1 S"],
+ ["Bhairavi",20,"M1","devotional","S R2 G2 M1 P D2 N2 Ṡ","Ṡ N2 D1 P M1 G2 R2 S"],
+ ["Kambhoji",28,"M1","majestic","S R2 G3 M1 P D2 Ṡ","Ṡ N2 D2 P M1 G3 R2 S"],
+ ["Begada",29,"M1","bright","S G3 R2 G3 M1 P D2 P Ṡ","Ṡ N3 D2 P M1 G3 R2 S"],
+ ["Saveri",15,"M1","pathos","S R1 M1 P D1 Ṡ","Ṡ N3 D1 P M1 G3 R1 S"],
+ ["Mukhari",22,"M1","pathos","S R2 M1 P N2 D2 Ṡ","Ṡ N2 D1 P M1 G2 R2 S"],
+ ["Sahana",28,"M1","devotional","S R2 G3 M1 P M1 D2 N2 Ṡ","Ṡ N2 Ṡ D2 N2 D2 P M1 G3 M1 R2 G3 R2 S"],
+ ["Kapi",22,"M1","light","S R2 M1 P N2 Ṡ","Ṡ N2 D2 N2 P M1 G2 R2 S"],
+ ["Behag",29,"both","light","S G3 M1 P N3 D2 N3 Ṡ","Ṡ N3 D2 P M2 G3 R2 G3 M1 G3 R2 S"],
+ ["Sindhubhairavi",10,"M1","light","S R1 G2 M1 P D1 N2 Ṡ","Ṡ N2 D1 P M1 G2 R1 S"],
+ ["Kanada",22,"M1","devotional","S R2 G2 M1 D2 N2 Ṡ","Ṡ N2 P M1 G2 M1 R2 S"],
+ ["Hindolam",20,"M1","serene","S G2 M1 D1 N2 Ṡ","Ṡ N2 D1 M1 G2 S"],
+ ["Revati",2,"M1","serene","S R1 M1 P N2 Ṡ","Ṡ N2 P M1 R1 S"],
+ ["Shanmukhapriya",56,"M2","majestic","S R2 G2 M2 P D1 N2 Ṡ","Ṡ N2 D1 P M2 G2 R2 S"],
+ ["Simhendramadhyamam",57,"M2","pathos","S R2 G2 M2 P D1 N3 Ṡ","Ṡ N3 D1 P M2 G2 R2 S"],
+ ["Hamsanandi",53,"M2","pathos","S R1 G3 M2 D2 N3 Ṡ","Ṡ N3 D2 M2 G3 R1 S"],
+ ["Vasanta",17,"M1","bright","S M1 G3 M1 D2 N3 Ṡ","Ṡ N3 D2 M1 G3 R1 S"],
+ ["Kedaragowla",28,"M1","devotional","S R2 M1 P N2 Ṡ","Ṡ N2 D2 P M1 G3 R2 S"],
+ ["Surutti",28,"M1","light","S R2 M1 P N2 Ṡ","Ṡ N2 D2 P M1 G3 P M1 R2 S"],
+ ["Abheri",22,"M1","devotional","S G2 M1 P N2 Ṡ","Ṡ N2 D2 P M1 G2 R2 S"],
+ ["Natakurinji",28,"M1","devotional","S R2 G3 M1 N2 D2 N2 P D2 N2 Ṡ","Ṡ N2 D2 M1 G3 M1 P G3 R2 S"],
+ ["Ritigowla",22,"M1","devotional","S G2 R2 G2 M1 N2 D2 M1 N2 Ṡ","Ṡ N2 D2 M1 G2 M1 P M1 G2 R2 S"],
+ ["Anandabhairavi",20,"M1","devotional","S G2 R2 G2 M1 P D2 P Ṡ","Ṡ N2 D2 P M1 G2 R2 S"],
+ ["Bilahari",29,"M1","bright","S R2 G3 P D2 Ṡ","Ṡ N3 D2 P M1 G3 R2 S"],
+ ["Keeravani",21,"M1","pathos","S R2 G2 M1 P D1 N3 Ṡ","Ṡ N3 D1 P M1 G2 R2 S"],
+ ["Charukesi",26,"M1","pathos","S R2 G3 M1 P D1 N2 Ṡ","Ṡ N2 D1 P M1 G3 R2 S"],
+ ["Amritavarshini",66,"M2","serene","S G3 M2 P N3 Ṡ","Ṡ N3 P M2 G3 S"],
+ ["Madhyamavati",22,"M1","light","S R2 M1 P N2 Ṡ","Ṡ N2 P M1 R2 S"],
+ ["Pantuvarali",51,"M2","devotional","S R1 G3 M2 P D1 N3 Ṡ","Ṡ N3 D1 P M2 G3 R1 S"],
+ ["Subhapantuvarali",45,"M2","pathos","S R1 G2 M2 P D1 N3 Ṡ","Ṡ N3 D1 P M2 G2 R1 S"],
+ ["Neelambari",29,"M1","serene","S R2 G3 M1 P D2 P Ṡ","Ṡ N3 P M1 G3 R2 G3 S"],
+ ["Varali",39,"M2","pathos","S G1 R1 G1 M2 P D1 N3 Ṡ","Ṡ N3 D1 P M2 G1 R1 S"],
+ ["Sri",22,"M1","majestic","S R2 M1 P N2 Ṡ","Ṡ N2 P D2 N2 P M1 R2 G2 R2 S"],
+ ["Desh",28,"M1","light","S R2 M1 P N3 Ṡ","Ṡ N2 D2 P M1 G3 R2 S"],
+ ["Latangi",63,"M2","bright","S R2 G3 M2 P D1 N3 Ṡ","Ṡ N3 D1 P M2 G3 R2 S"],
+ ["Dharmavati",59,"M2","serene","S R2 G2 M2 P D2 N3 Ṡ","Ṡ N3 D2 P M2 G2 R2 S"]
+].map(r=>({name:r[0],mela:r[1],madhya:r[2],mood:r[3],aro:r[4],ava:r[5]}));
+const RAGA_BY = Object.fromEntries(RAGAS.map(r=>[r.name,r]));
+function ragaFromName(name){
+  name=(name||"").trim(); if(!name) return null;
+  const hit=RAGAS.find(r=>r.name.toLowerCase().replace(/[^a-z]/g,"")===name.toLowerCase().replace(/[^a-z]/g,""));
+  return hit||{name,custom:true,mela:null,madhya:"none",mood:null,aro:"",ava:""};
+}
+const SEG_COLORS = ["var(--seg1)","var(--seg2)","var(--seg3)","var(--seg4)"];
+
+/* ===================== STORAGE (own viruttams) ===================== */
+const LS_KEY = "viruttham-own-v1";
+function loadOwn(){try{return JSON.parse(localStorage.getItem(LS_KEY)||"[]")}catch(e){return []}}
+function saveOwn(list){try{localStorage.setItem(LS_KEY,JSON.stringify(list))}catch(e){}}
+let OWN = loadOwn();
+const allV = ()=>[...VIRUTTHAMS,...OWN];
+
+/* ===================== HELPERS ===================== */
+const $ = s=>document.querySelector(s);
+const esc = s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const rnd = a=>a[Math.floor(Math.random()*a.length)];
+const fmt = s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
+const LONG_RE = /(ai|au|[āīūēōĀĪŪĒŌ])/g;
+function hl(text,on){
+  if(!on) return esc(text);
+  return text.split(/(\s+)/).map(w=>{
+    if(/^\s+$/.test(w)) return w;
+    const e = esc(w);
+    // find last long vowel position; mark end if it's within the last 2 letters (word-final syllable)
+    const letters = w.replace(/[^\p{L}\p{M}']/gu,"");
+    let html = e.replace(LONG_RE,'<span class="long">$1</span>');
+    const m = [...letters.matchAll(LONG_RE)];
+    if(m.length){
+      const last = m[m.length-1];
+      const tail = letters.length - (last.index + last[0].length);
+      if(tail <= 2){
+        // mark the last occurrence as end
+        const idx = html.lastIndexOf('<span class="long">');
+        html = html.slice(0,idx)+'<span class="long end">'+html.slice(idx+19);
+      }
+    }
+    return html;
+  }).join("");
+}
+function madhyaLabel(m){return m==="M1"?"Shuddha Ma (M1)":m==="M2"?"Prati Ma (M2)":m==="both"?"Both M1 & M2":"No Ma"}
+
+/* ===================== TABS ===================== */
+function showTab(name){
+  document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===name));
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.id==="tab-"+name));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+document.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>showTab(b.dataset.goto));
+
+/* ===================== PRACTICE SETUP UI ===================== */
+function fillVSelect(selId){
+  const sel=$(selId); sel.innerHTML="";
+  DEITIES.forEach(d=>{
+    const list=allV().filter(v=>v.deity===d); if(!list.length) return;
+    const og=document.createElement("optgroup"); og.label=DEITY_ICON[d]+" "+d;
+    list.forEach(v=>{const o=document.createElement("option");o.value=v.id;o.textContent=v.title+(v.own?" (mine)":"");og.appendChild(o)});
+    sel.appendChild(og);
+  });
+}
+function fillDeitySelects(){
+  $("#v-deity-filter").innerHTML='<option value="">Any deity</option>'+DEITIES.map(d=>`<option>${d}</option>`).join("");
+  $("#own-deity").innerHTML=DEITIES.map(d=>`<option>${d}</option>`).join("")+'<option>Other</option>';
+}
+function renderManualRagas(){
+  const n=+$("#n-select").value, box=$("#r-manual");
+  const prev=[...box.querySelectorAll("input")].map(s=>s.value);
+  box.innerHTML='<div class="small muted" style="margin-bottom:6px">Type or pick each raga in the order you will sing it. Any raga name works, including ones not in the list. Leave a slot blank and the tool will fill it with a contrasting raga.</div>';
+  for(let i=0;i<n;i++){
+    const d=document.createElement("div"); d.className="raga-slot";
+    d.innerHTML=`<span class="dot" style="background:${SEG_COLORS[i]}"></span><input type="text" list="raga-list" placeholder="Raga ${i+1} (e.g. Kalyani)" autocomplete="off"><span class="small muted">Raga ${i+1}</span>`;
+    box.appendChild(d);
+    if(prev[i]) d.querySelector("input").value=prev[i];
+  }
+}
+function syncSetup(){
+  const rr=$("#rand-r").checked;
+  document.querySelector(`input[name=rmode][value=${rr?"rand":"own"}]`).checked=true;
+  $("#rm-rand").classList.toggle("on",rr); $("#rm-own").classList.toggle("on",!rr);
+  // choosing your own ragas means you also choose how many
+  if(!rr) $("#rand-n").checked=false;
+  $("#rand-n").disabled=!rr; $("#c-n").style.opacity=rr?1:.5;
+  const rv=$("#rand-v").checked, rn=$("#rand-n").checked;
+  ["c-v","c-n","c-r"].forEach((id,i)=>$("#"+id).classList.toggle("on",[rv,rn,rr][i]));
+  $("#v-random-opts").classList.toggle("hidden",!rv);
+  $("#v-manual-opts").classList.toggle("hidden",rv);
+  const own=document.querySelector('input[name=vsrc]:checked').value==="own";
+  $("#v-lib").classList.toggle("hidden",own); $("#v-own").classList.toggle("hidden",!own);
+  $("#n-manual").classList.toggle("hidden",rn); $("#n-random-note").classList.toggle("hidden",!rn);
+  $("#r-random-opts").classList.toggle("hidden",!rr);
+  $("#r-manual").classList.toggle("hidden",rr);
+  if(!rr) renderManualRagas();
+  document.querySelectorAll("#r-random-opts .check").forEach(c=>c.classList.toggle("on",c.querySelector("input").checked));
+}
+document.querySelectorAll('input[name=rmode]').forEach(r=>r.addEventListener("change",e=>{$("#rand-r").checked=e.target.value==="rand";syncSetup()}));
+["rand-v","rand-n","rand-r","opt-contrast","opt-light"].forEach(id=>$("#"+id).addEventListener("change",syncSetup));
+document.querySelectorAll('input[name=vsrc]').forEach(r=>r.addEventListener("change",syncSetup));
+$("#n-select").addEventListener("change",renderManualRagas);
+
+/* ===================== RAGA PICKER ===================== */
+function pickRagas(n,v,fixed){
+  const contrast=$("#opt-contrast").checked, endLight=$("#opt-light").checked;
+  const out=fixed?fixed.slice(0,n):[];
+  while(out.length<n) out.push(null);
+  for(let i=0;i<n;i++){
+    if(out[i]) continue;
+    const used=new Set(out.filter(Boolean).map(r=>r.name));
+    const prev=out[i-1]||null, next=out[i+1]||null;
+    let best=null,bs=-1e9;
+    RAGAS.forEach(r=>{
+      if(used.has(r.name)) return;
+      let s=Math.random()*1.2;
+      if(contrast){
+        [prev,next].forEach(nb=>{ if(!nb) return;
+          if(r.mood!==nb.mood) s+=2;
+          if(r.mela!==nb.mela) s+=1.5; else s-=2.5;
+          if(r.madhya!==nb.madhya && r.madhya!=="none" && nb.madhya!=="none") s+=1;
+        });
+        out.forEach(o=>{ if(o && o.mela===r.mela) s-=1; if(o && o.mood===r.mood) s-=.6; });
+        if(i===0 && n>1 && (r.mood==="bright"||r.mood==="majestic")) s+=1.2;
+      }
+      if(endLight && n>=2 && i===n-1) s+= r.mood==="light"?4:-1;
+      if(endLight && n>=2 && i<n-1 && r.mood==="light") s-=1.5;
+      if(s>bs){bs=s;best=r}
+    });
+    out[i]=best;
+  }
+  return out;
+}
+function contrastNotes(rs){
+  if(rs.length<2) return "";
+  const items=[];
+  for(let i=1;i<rs.length;i++){
+    const a=rs[i-1],b=rs[i],bits=[];
+    if(a.custom||b.custom){items.push(`<li><b>${esc(a.name)} → ${esc(b.name)}</b></li>`);continue}
+    if(a.mood!==b.mood) bits.push(`mood: ${MOODS[a.mood].split(" ")[0].toLowerCase()} → ${MOODS[b.mood].split(" ")[0].toLowerCase()}`);
+    if(a.madhya!==b.madhya && a.madhya!=="none" && b.madhya!=="none") bits.push(`madhyamam: ${a.madhya} → ${b.madhya}`);
+    if(a.mela!==b.mela) bits.push(`parent mela ${a.mela} → ${b.mela}`);
+    let warn="";
+    if(a.mela===b.mela) warn=` <span class="pill maroon">⚠ same parent scale: make the change obvious with the new raga's signature phrase</span>`;
+    else if(a.mood===b.mood && (a.madhya===b.madhya)) warn=` <span class="pill">similar feel: lean on what makes each raga different</span>`;
+    items.push(`<li><b>${a.name} → ${b.name}</b>: ${bits.join(", ")||"subtle change"}${warn}</li>`);
+  }
+  return `<div class="notes"><b>Transitions</b><ul class="tight">${items.join("")}</ul></div>`;
+}
+
+/* ===================== GENERATE ===================== */
+let STATE={v:null,ragas:[]};
+function chooseVerse(){
+  if($("#rand-v").checked){
+    const d=$("#v-deity-filter").value;
+    const pool=allV().filter(v=>!d||v.deity===d);
+    let pick=rnd(pool);
+    if(pool.length>1 && STATE.v) while(pick.id===STATE.v.id) pick=rnd(pool);
+    return pick;
+  }
+  if(document.querySelector('input[name=vsrc]:checked').value==="own"){
+    const lines=$("#own-text").value.split("\n").map(s=>s.trim()).filter(Boolean);
+    if(!lines.length){alert("Please type your viruttham's text first (one line per row).");return null}
+    const v={id:"own-"+Date.now(),own:true,deity:$("#own-deity").value,lang:$("#own-lang").value.trim()||"—",
+      title:$("#own-title").value.trim()||lines[0].split(" ").slice(0,3).join(" "),source:"My own entry",
+      lines,meaning:$("#own-meaning").value.trim(),key:$("#own-key").value.split(",").map(s=>s.trim()).filter(Boolean),ragas:[]};
+    if($("#own-save").checked){OWN.push(v);saveOwn(OWN);fillVSelect("#v-select");renderGlossary();
+      document.querySelector('input[name=vsrc][value=lib]').checked=true; $("#v-select").value=v.id; syncSetup();}
+    return v;
+  }
+  return allV().find(v=>v.id===$("#v-select").value);
+}
+function chooseRagas(v){
+  const rn=$("#rand-n").checked, rr=$("#rand-r").checked;
+  const n = rn ? 1+Math.floor(Math.random()*4) : +$("#n-select").value;
+  if(rr || rn) return pickRagas(n,v);
+  const fixed=[...$("#r-manual").querySelectorAll("input")].map(s=>ragaFromName(s.value));
+  return pickRagas(n,v,fixed);
+}
+function generate(keepV,keepR){
+  const v = keepV ? STATE.v : chooseVerse(); if(!v) return;
+  const ragas = keepR ? STATE.ragas : chooseRagas(v);
+  STATE={v,ragas,locks:STATE.locks&&keepV?STATE.locks:[]};
+  renderResult(); resetTimer();
+  $("#result").classList.remove("hidden");
+  if(!keepV&&!keepR) $("#result").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function splitLines(lines,n){
+  const groups=[]; let idx=0;
+  if(n<=lines.length){
+    const base=Math.floor(lines.length/n), extra=lines.length%n;
+    for(let i=0;i<n;i++){const size=base+(i<extra?1:0);groups.push(lines.slice(idx,idx+size));idx+=size}
+  } else {
+    lines.forEach(l=>groups.push([l]));
+    while(groups.length<n) groups.push(null); // repeat-final-line slots
+  }
+  return groups;
+}
+function renderResult(){
+  const {v,ragas}=STATE, on=$("#hl-toggle").checked;
+  $("#res-deity").textContent=(DEITY_ICON[v.deity]||"🪔")+" "+v.deity;
+  $("#res-lang").textContent=v.lang;
+  $("#res-title").textContent=v.title;
+  $("#res-source").textContent=v.source||"";
+  const limit=+$("#t-limit").value, per=(limit-30)/ragas.length;
+  STATE.locks = STATE.locks && STATE.locks.length===ragas.length ? STATE.locks : ragas.map(()=>false);
+  $("#res-ragas").innerHTML=ragas.map((r,i)=>`
+    <div class="raga-card" style="border-left-color:${SEG_COLORS[i]}">
+      <div class="row" style="justify-content:space-between"><span class="seg-label" style="color:${SEG_COLORS[i]}">Raga ${i+1} · ~${fmt(per)}</span>
+        <span><button class="btn ghost sm" data-lock="${i}" title="Lock this raga when re-rolling">${STATE.locks[i]?"🔒":"🔓"}</button><button class="btn ghost sm" data-reroll="${i}" title="Swap just this raga">↻</button></span></div>
+      <h4>${esc(r.name)}</h4>
+      ${r.custom?'<div class="small muted">Your chosen raga</div>':`<div class="small"><span class="pill">${MOODS[r.mood]}</span><span class="pill green">Mela ${r.mela}</span><span class="pill maroon">${madhyaLabel(r.madhya)}</span></div>
+      <div class="scale">↑ ${r.aro}<br>↓ ${r.ava}</div>`}
+    </div>`).join("");
+  $("#res-contrast").innerHTML=contrastNotes(ragas);
+  const groups=splitLines(v.lines,ragas.length);
+  $("#res-lines").innerHTML=groups.map((g,i)=>`
+    <div class="seg-line" style="border-color:${SEG_COLORS[i]}">
+      <div class="seg-label" style="color:${SEG_COLORS[i]};font-family:Inter,sans-serif">${ragas[i].name}</div>
+      ${g?g.map(l=>hl(l,on)).join("<br>"):`<span class="small muted" style="font-family:Inter,sans-serif">Repeat the final line (or its last key word) in this raga, a ragamalika-style close.</span><br>${hl(v.lines[v.lines.length-1],on)}`}
+    </div>`).join("");
+  $("#res-meaning-wrap").classList.toggle("hidden",!v.meaning);
+  $("#res-meaning").textContent=v.meaning||"";
+  $("#res-key-wrap").classList.toggle("hidden",!(v.key&&v.key.length));
+  $("#res-key").innerHTML=(v.key||[]).map(k=>`<span class="pill">${esc(k)}</span>`).join("")+'<div class="small muted" style="margin-top:6px">Plan your longest karvais on the long syllables of these words, and use the last one for your climax.</div>';
+  document.querySelectorAll("[data-reroll]").forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.reroll; const fixed=STATE.ragas.slice(); fixed[i]=null;
+    // exclude current raga from being re-picked
+    const cur=STATE.ragas[i]; let res; let tries=0;
+    do{res=pickRagas(fixed.length,STATE.v,fixed);tries++}while(res[i].name===cur.name&&tries<20);
+    STATE.ragas=res; renderResult(); buildBar();
+  });
+  document.querySelectorAll("[data-lock]").forEach(b=>b.onclick=()=>{const i=+b.dataset.lock;STATE.locks[i]=!STATE.locks[i];renderResult()});
+  buildBar();
+}
+$("#gen").onclick=()=>generate(false,false);
+$("#reroll-v").onclick=()=>{const keep=STATE.ragas; const v=chooseVerseForReroll(); if(!v)return; STATE.v=v; renderResult(); resetTimer();};
+function chooseVerseForReroll(){
+  const d=$("#rand-v").checked?$("#v-deity-filter").value:"";
+  const pool=allV().filter(v=>(!d||v.deity===d)&&v.id!==STATE.v.id);
+  return pool.length?rnd(pool):STATE.v;
+}
+$("#reroll-r").onclick=()=>{
+  const n = $("#rand-n").checked && !STATE.locks.some(Boolean) ? 1+Math.floor(Math.random()*4) : STATE.ragas.length;
+  const fixed = STATE.ragas.map((r,i)=>STATE.locks[i]?r:null).slice(0,n);
+  STATE.locks = STATE.locks.slice(0,n);
+  STATE.ragas = pickRagas(n,STATE.v,fixed); renderResult(); resetTimer();
+};
+$("#hl-toggle").onchange=renderResult;
+$("#t-limit").onchange=()=>{renderResult();resetTimer()};
+
+/* ===================== TIMER & AUDIO ===================== */
+let actx=null;
+function ac(){ if(!actx){ try{actx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){} } return actx }
+function tone(freq,dur,type="sine",vol=.25){
+  const c=ac(); if(!c) return;
+  const o=c.createOscillator(), g=c.createGain(); o.type=type; o.frequency.value=freq;
+  g.gain.setValueAtTime(vol,c.currentTime); g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+dur);
+  o.connect(g).connect(c.destination); o.start(); o.stop(c.currentTime+dur);
+}
+const chime=()=>{tone(880,.6,"sine",.18);setTimeout(()=>tone(1320,.8,"sine",.12),120)};
+const buzzer=()=>{tone(180,1.4,"square",.22);tone(186,1.4,"sawtooth",.12)};
+let T={running:false,elapsed:0,start:0,raf:0,lastSeg:-1,warned:false,buzzed:false};
+function segBounds(){
+  const limit=+$("#t-limit").value, n=STATE.ragas.length||1, usable=limit-30;
+  return {limit,n,per:usable/n,usable};
+}
+function buildBar(){
+  const {limit,n,per}=segBounds(), bar=$("#tbar");
+  bar.querySelectorAll(".seg").forEach(s=>s.remove());
+  for(let i=0;i<n;i++){const s=document.createElement("div");s.className="seg";s.style.width=(per/limit*100)+"%";s.style.background=SEG_COLORS[i];bar.insertBefore(s,$("#needle"))}
+  const buf=document.createElement("div");buf.className="seg";buf.style.width=(30/limit*100)+"%";buf.style.background="#c9b9a3";bar.insertBefore(buf,$("#needle"));
+}
+function tick(){
+  const now=performance.now(); const el=T.elapsed+(T.running?(now-T.start)/1000:0);
+  const {limit,n,per}=segBounds(); const rem=limit-el;
+  const clk=$("#clock"); clk.textContent=rem>=0?fmt(rem):"-"+fmt(-rem);
+  clk.classList.toggle("warn",rem<=30&&rem>0); clk.classList.toggle("over",rem<=0);
+  $("#needle").style.left=Math.min(100,el/limit*100)+"%";
+  const seg=Math.min(n-1,Math.floor(el/per));
+  if(el<n*per){
+    const r=STATE.ragas[seg]; const segRem=(seg+1)*per-el;
+    $("#t-now").innerHTML=`Now: <span style="color:${SEG_COLORS[seg]}">${r?r.name:""}</span> · ${fmt(segRem)} left in this raga`+(seg<n-1?` · next: ${STATE.ragas[seg+1].name}`:"");
+  } else if(rem>0) $("#t-now").textContent="Cushion: finish your closing phrase now.";
+  else $("#t-now").textContent="⏰ Time! The buzzer has sounded.";
+  if(T.running){
+    if(seg!==T.lastSeg && T.lastSeg!==-1 && el<n*per && $("#t-chime").checked) chime();
+    T.lastSeg=seg;
+    if(rem<=30&&!T.warned){T.warned=true;tone(660,.25,"sine",.2)}
+    if(rem<=0&&!T.buzzed){T.buzzed=true;buzzer()}
+    T.raf=requestAnimationFrame(tick);
+  }
+}
+function startTimer(){ac(); if(actx&&actx.state==="suspended") actx.resume(); T.running=true;T.start=performance.now();if(T.lastSeg===-1)T.lastSeg=0;$("#t-start").textContent="⏸ Pause";tick()}
+function pauseTimer(){T.elapsed+=(performance.now()-T.start)/1000;T.running=false;cancelAnimationFrame(T.raf);$("#t-start").textContent="▶ Resume"}
+function resetTimer(){cancelAnimationFrame(T.raf);T={running:false,elapsed:0,start:0,raf:0,lastSeg:-1,warned:false,buzzed:false};$("#t-start").textContent="▶ Start";buildBar();tick();$("#t-now").textContent="Press start when you sing your first note."}
+$("#t-start").onclick=()=>T.running?pauseTimer():startTimer();
+$("#t-reset").onclick=resetTimer;
+
+/* ===================== RECORDER ===================== */
+let rec=null,chunks=[],stream=null;
+$("#rec-btn").onclick=async()=>{
+  if(rec&&rec.state==="recording"){rec.stop();return}
+  try{
+    stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+    rec=new MediaRecorder(stream); chunks=[];
+    rec.ondataavailable=e=>chunks.push(e.data);
+    rec.onstop=()=>{
+      const blob=new Blob(chunks,{type:rec.mimeType||"audio/webm"}); const url=URL.createObjectURL(blob);
+      const a=$("#rec-audio"); a.src=url; a.classList.remove("hidden");
+      const dl=$("#rec-dl"); dl.href=url; dl.classList.remove("hidden");
+      stream.getTracks().forEach(t=>t.stop());
+      $("#rec-btn").textContent="● Record again"; $("#rec-status").textContent="Recording saved below. Listen back with the self-check list.";
+      if(T.running) pauseTimer();
+    };
+    rec.start(); $("#rec-btn").textContent="■ Stop"; $("#rec-status").textContent="🔴 Recording…";
+    if($("#rec-sync").checked){resetTimer();startTimer()}
+  }catch(e){$("#rec-status").textContent="Couldn't access the microphone. Check your browser's permission settings (recording needs https, which GitHub Pages provides)."}
+};
+
+/* ===================== GLOSSARY ===================== */
+let G={deity:"",q:""};
+function renderChips(){
+  const counts=Object.fromEntries(DEITIES.map(d=>[d,allV().filter(v=>v.deity===d).length]));
+  $("#g-chips").innerHTML=`<button class="chip ${!G.deity?"on":""}" data-d="">All (${allV().length})</button>`+
+    DEITIES.filter(d=>counts[d]).map(d=>`<button class="chip ${G.deity===d?"on":""}" data-d="${d}">${DEITY_ICON[d]} ${d} (${counts[d]})</button>`).join("");
+  $("#g-chips").querySelectorAll(".chip").forEach(c=>c.onclick=()=>{G.deity=c.dataset.d;renderGlossary()});
+}
+function renderGlossary(){
+  renderChips();
+  const on=$("#g-hl").checked, q=G.q.toLowerCase();
+  const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+  const nq=norm(q);
+  const match=v=>!nq||norm([v.title,v.source,v.lines.join(" "),v.meaning,(v.ragas||[]).join(" "),v.lang].join(" ")).includes(nq);
+  const deities=[...DEITIES,"Other"].filter(d=>!G.deity||d===G.deity);
+  let html="";
+  deities.forEach(d=>{
+    const list=allV().filter(v=>v.deity===d&&match(v)); if(!list.length) return;
+    html+=`<div class="deity-head"><h2>${DEITY_ICON[d]||"🪔"} ${d}</h2><span class="muted small">${list.length} verse${list.length>1?"s":""}</span></div><div class="vgrid">`;
+    list.forEach(v=>{
+      html+=`<div class="vcard">
+        <div><span class="pill">${esc(v.lang)}</span>${v.own?'<span class="pill green">Mine</span>':""}</div>
+        <h3>${esc(v.title)}</h3>
+        <div class="small muted">${esc(v.source||"")}</div>
+        <div class="first">${esc(v.lines[0])}…</div>
+        <details><summary>Full text &amp; meaning</summary>
+          <div class="verse" style="font-size:1.15rem;margin:8px 0">${v.lines.map(l=>hl(l,on)).join("<br>")}</div>
+          ${v.meaning?`<p class="small"><b>Meaning:</b> ${esc(v.meaning)}</p>`:""}
+          ${v.key&&v.key.length?`<p class="small"><b>Words to improvise on:</b> ${v.key.map(k=>`<span class="pill">${esc(k)}</span>`).join("")}</p>`:""}
+        </details>
+        ${v.ragas&&v.ragas.length?`<div class="small"><b>Often sung in / suits:</b> ${v.ragas.join(", ")}</div>`:""}
+        <div class="row" style="margin-top:auto;padding-top:6px">
+          <button class="btn sm" data-practice="${v.id}">Practice this →</button>
+          ${v.own?`<button class="btn ghost sm" data-del="${v.id}">Delete</button>`:""}
+        </div>
+      </div>`;
+    });
+    html+="</div>";
+  });
+  $("#g-list").innerHTML=html||'<div class="card muted">No verses match your search.</div>';
+  $("#g-list").querySelectorAll("[data-practice]").forEach(b=>b.onclick=()=>{
+    $("#rand-v").checked=false; document.querySelector('input[name=vsrc][value=lib]').checked=true;
+    fillVSelect("#v-select"); $("#v-select").value=b.dataset.practice; syncSetup(); showTab("practice");
+    generate(false,false);
+  });
+  $("#g-list").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
+    if(!confirm("Delete this viruttham from your glossary?")) return;
+    OWN=OWN.filter(v=>v.id!==b.dataset.del); saveOwn(OWN); fillVSelect("#v-select"); renderGlossary();
+  });
+}
+$("#g-search").oninput=e=>{G.q=e.target.value;renderGlossary()};
+$("#g-hl").onchange=renderGlossary;
+
+/* ===================== INIT ===================== */
+$("#raga-list").innerHTML=RAGAS.map(r=>`<option value="${r.name}">`).join("");
+fillDeitySelects(); fillVSelect("#v-select"); syncSetup(); renderGlossary();
+</script>
+</body>
+</html>
