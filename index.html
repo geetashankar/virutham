@@ -583,6 +583,10 @@ const VIRUTTHAMS = [
   lines:["mauna vyākhyā prakaṭita parabrahma tattvaṁ yuvānaṁ","varṣiṣṭhāntē vasad ṛṣigaṇair āvṛtaṁ brahmaniṣṭhaiḥ","ācāryēndraṁ karakalita cinmudram ānandamūrtiṁ","svātmārāmaṁ muditavadanaṁ dakṣiṇāmūrtim īḍē"],
   meaning:"I praise Dakshinamurti, the youthful one who reveals the truth of the Supreme through silent teaching, surrounded by aged sages steeped in Brahman; the greatest of teachers, showing the chin-mudra, the embodiment of bliss, delighting in the Self, with a joyful face.",
   key:["mauna vyākhyā","yuvānaṁ","ānandamūrtiṁ","dakṣiṇāmūrtim"],ragas:["Shankarabharanam","Todi","Revati"]},
+ {id:"halasya",deity:"Shiva",lang:"Sanskrit",title:"Hālāsyanāthāya Mahēśvarāya",source:"Traditional sloka on Sundarēśvara of Madurai (Hālāsya)",
+  lines:["hālāsyanāthāya mahēśvarāya","hālāhalālaṅkṛta kandharāya","mīnēkṣaṇāyāḥ patayē śivāya","namō namaḥ sundaratāṇḍavāya"],
+  meaning:"Salutations again and again to Shiva, the Lord of Halasya (Madurai), the great Lord whose throat is adorned with the halahala poison, the husband of fish-eyed Meenakshi, the beautiful dancer (Sundareshvara).",
+  key:["hālāsyanāthāya","hālāhala","mīnēkṣaṇāyāḥ","sundaratāṇḍavāya"],ragas:["Kambhoji","Shankarabharanam","Revati","Varali"]},
  {id:"thodudaiya",deity:"Shiva",lang:"Tamil",title:"Tōḍuḍaiya Seviyan",source:"Tirujñāna Sambandar, Tēvāram 1.1 (Sirkazhi)",
   lines:["tōḍuḍaiya seviyan viḍaiyēriyōr tūveṇmadi sūḍik","kāḍuḍaiya suḍalaip poḍipūsi en uḷḷaṅkavar kaḷvan","ēḍuḍaiya malarān munainaṭ paṇindēttha aruḷseyda","pīḍuḍaiya piramāpuram mēviya pemmān ivan andrē"],
   meaning:"He wears an earring, rides the bull, and wears the pure white crescent; smeared with ash from the cremation ground, he is the thief who stole my heart. He is the great Lord of Brahmapuram (Sirkazhi), who blessed Brahma when he worshipped long ago. Isn't it he?",
@@ -698,6 +702,11 @@ const VIRUTTHAMS = [
   meaning:"One face that plays riding the peacock; one that speaks words of wisdom with Shiva; one that ends the karma of devotees who praise you; one that held the spear that pierced the mountain; one that slew the hostile Suras; one that came to marry Valli. Grace me with the meaning of your six faces, O Lord dwelling at ancient Arunachala.",
   key:["mugam ondrē","ñānamozhi","ārumugam","perumāḷē"],ragas:["Shanmukhapriya","Kambhoji","Hamsadhwani","Sindhubhairavi"]},
 
+ {id:"adum-parivel",deity:"Murugan",lang:"Tamil",scheme:"caps",title:"Aadum ParivEl",source:"Aruṇagirināthar, Kandar Anubhūti (verse 1, followed by the opening of verse 49)",
+  lines:["Aadum parivEl aNisEval enap","pAdum paNiyE paNiyAi aruLvAi","thEdum kayamA muganaich cheruvil","sAdum thaniyAnai sahOdharanE.","enthAyum enakkaruL thandhaiyum nee","sinthAkula mAnavai theerthenai AaL"],
+  meaning:"O brother of the peerless elephant-faced one, who crushed in battle the elephant-faced demon who came looking for a fight: grant me, as my service, the task of singing of your dancing peacock, your spear and your rooster banner. You are my mother and my gracious father; remove the anguish of my mind and take me as yours.",
+  key:["Aadum parivEl","aruLvAi","sahOdharanE","enthAyum","AaL"],ragas:["Shanmukhapriya","Kambhoji","Hamsadhwani","Sindhubhairavi"]},
+
  {id:"anjananandanam",deity:"Hanuman",lang:"Sanskrit",title:"Añjanānandanaṁ Vīraṁ",source:"Traditional Hanuman sloka",
   lines:["añjanānandanaṁ vīraṁ","jānakīśōkanāśanam","kapīśam akṣahantāraṁ","vandē laṅkābhayaṅkaram"],
   meaning:"I salute the hero, son of Anjana, who ended Sita's sorrow, lord of the monkeys, slayer of Aksha, terror of Lanka.",
@@ -793,9 +802,12 @@ const $ = s=>document.querySelector(s);
 const esc = s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const rnd = a=>a[Math.floor(Math.random()*a.length)];
 const fmt = s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
-const LONG_RE = /(ai|au|[āīūēōĀĪŪĒŌ])/g;
-function hl(text,on){
+const LONG_RE_MAC = /(ai|au|[āīūēōĀĪŪĒŌ])/g;
+const LONG_RE_CAPS = /(Aa|aa|ee|oo|ai|au|[AIUEO])/g;
+let LONG_RE = LONG_RE_MAC;
+function hl(text,on,scheme){
   if(!on) return esc(text);
+  LONG_RE = scheme==="caps" ? LONG_RE_CAPS : LONG_RE_MAC;
   return text.split(/(\s+)/).map(w=>{
     if(/^\s+$/.test(w)) return w;
     const e = esc(w);
@@ -991,7 +1003,7 @@ function renderResult(){
   $("#res-lines").innerHTML=groups.map((g,i)=>`
     <div class="seg-line" style="border-color:${SEG_COLORS[i]}">
       <div class="seg-label" style="color:${SEG_COLORS[i]};font-family:Inter,sans-serif">${ragas[i].name}</div>
-      ${g?g.map(l=>hl(l,on)).join("<br>"):`<span class="small muted" style="font-family:Inter,sans-serif">Repeat the final line (or its last key word) in this raga, a ragamalika-style close.</span><br>${hl(v.lines[v.lines.length-1],on)}`}
+      ${g?g.map(l=>hl(l,on,v.scheme)).join("<br>"):`<span class="small muted" style="font-family:Inter,sans-serif">Repeat the final line (or its last key word) in this raga, a ragamalika-style close.</span><br>${hl(v.lines[v.lines.length-1],on,v.scheme)}`}
     </div>`).join("");
   $("#res-meaning-wrap").classList.toggle("hidden",!v.meaning);
   $("#res-meaning").textContent=v.meaning||"";
@@ -1118,7 +1130,7 @@ function renderGlossary(){
         <div class="small muted">${esc(v.source||"")}</div>
         <div class="first">${esc(v.lines[0])}…</div>
         <details><summary>Full text &amp; meaning</summary>
-          <div class="verse" style="font-size:1.15rem;margin:8px 0">${v.lines.map(l=>hl(l,on)).join("<br>")}</div>
+          <div class="verse" style="font-size:1.15rem;margin:8px 0">${v.lines.map(l=>hl(l,on,v.scheme)).join("<br>")}</div>
           ${v.meaning?`<p class="small"><b>Meaning:</b> ${esc(v.meaning)}</p>`:""}
           ${v.key&&v.key.length?`<p class="small"><b>Words to improvise on:</b> ${v.key.map(k=>`<span class="pill">${esc(k)}</span>`).join("")}</p>`:""}
         </details>
